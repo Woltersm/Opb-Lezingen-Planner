@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Openbare Lezingen</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" id="wrapperThemeColor" content="#FAF7F4">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #FAF7F4;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="appFrame" src="https://script.google.com/macros/s/AKfycbwFVihPtRINd254W2VzhzHednnbVlWiL_MAo1HnzG7CutgahsfQif_5ph_Noky-C8UgFg/exec" allow="fullscreen"></iframe>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+
+    // Luister naar themakleur-wijzigingen vanuit de Apps Script iframe
+    window.addEventListener('message', (event) => {
+      if (event.data && event.data.themeColor) {
+        document.getElementById('wrapperThemeColor').setAttribute('content', event.data.themeColor);
+        document.documentElement.style.backgroundColor = event.data.themeColor;
+        document.body.style.backgroundColor = event.data.themeColor;
+      }
+    });
+  </script>
+</body>
+</html>
