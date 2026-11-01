@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handleiding — Openbare Lezingen Planner</title>
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --brand-50: #fbf5f2;
+            --brand-100: #f6e8e2;
+            --brand-200: #edd3c7;
+            --brand-500: #d4592a;
+            --brand-600: #b54115;
+            --brand-700: #93320e;
+            --emerald-100: #d1fae5;
+            --emerald-800: #065f46;
+            --amber-100: #fef3c7;
+            --amber-800: #92400e;
+            --red-100: #fee2e2;
+            --red-800: #991b1b;
+            --blue-100: #dbeafe;
+            --blue-800: #1e40af;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --bg-box: #FCF9F7;
+            --bg-flow: #FFFFFF;
+            --bg-sidebar: #FFFFFF;
+            --border-color: #E2E8F0;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .dark-mode {
+            --brand-50: #2a1b14;
+            --brand-100: #3d2419;
+            --brand-200: #593120;
+            --brand-500: #e06d3f;
+            --brand-600: #f07f4f;
+            --brand-700: #fb923c;
+            --bg-body: #0F172A;
+            --bg-card: #1E293B;
+            --bg-box: #172334;
+            --bg-flow: #0F172A;
+            --bg-sidebar: #1E293B;
+            --border-color: #334155;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --emerald-100: #064e3b;
+            --emerald-800: #a7f3d0;
+            --amber-100: #78350f;
+            --amber-800: #fde68a;
+            --red-100: #450a0a;
+            --red-800: #fecaca;
+            --blue-100: #1e3a8a;
+            --blue-800: #bfdbfe;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        /* Top Header */
+        .top-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            background: transparent;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12));
+        }
+        .logo-text h1 {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--brand-600);
+            line-height: 1.2;
+        }
+        .logo-text p {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-box {
+            position: relative;
+            width: 260px;
+        }
+        .search-box i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 7px 10px 7px 32px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-size: 12.5px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-box input:focus {
+            border-color: var(--brand-500);
+        }
+
+        .icon-btn {
+            background: var(--bg-body);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 7px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12.5px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .icon-btn:hover {
+            border-color: var(--brand-500);
+            color: var(--brand-600);
+        }
+
+        /* Layout */
+        .app-layout {
+            display: flex;
+            max-width: 1320px;
+            margin: 0 auto;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            position: sticky;
+            top: 65px;
+            height: calc(100vh - 65px);
+            overflow-y: auto;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            padding: 20px 14px;
+            flex-shrink: 0;
+        }
+        .filter-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 16px;
+            background: var(--bg-body);
+            padding: 3px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .filter-tab {
+            flex: 1;
+            padding: 5px 8px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+        .filter-tab.active {
+            background: var(--brand-600);
+            color: #FFFFFF;
+        }
+
+        .nav-category {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin: 14px 10px 6px;
+        }
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.15s;
+            margin-bottom: 3px;
+        }
+        .nav-link:hover {
+            background: var(--brand-50);
+            color: var(--brand-600);
+        }
+        .nav-link.active {
+            background: var(--brand-500);
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+        .nav-link i {
+            width: 16px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        /* Main Content */
+        .content {
+            flex: 1;
+            padding: 32px 48px 80px;
+            min-width: 0;
+        }
+
+        .doc-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+        }
+        .section-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--brand-100);
+            color: var(--brand-600);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .section-header h2 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin: 20px 0 10px;
+            color: var(--brand-600);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        p {
+            font-size: 13.5px;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            line-height: 1.65;
+        }
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 14px;
+            font-size: 13.5px;
+            color: var(--text-main);
+        }
+        li {
+            margin-bottom: 6px;
+        }
+
+        /* Badges / Pills */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 2px 9px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 700;
+            border: 1px solid var(--border-color);
+            background: var(--bg-body);
+            color: var(--text-main);
+            vertical-align: middle;
+        }
+        .pill-brand {
+            background: var(--brand-100);
+            color: var(--brand-700);
+            border-color: var(--brand-200);
+        }
+        .pill-green {
+            background: var(--emerald-100);
+            color: var(--emerald-800);
+            border-color: #a7f3d0;
+        }
+        .pill-amber {
+            background: var(--amber-100);
+            color: var(--amber-800);
+            border-color: #fde68a;
+        }
+        .pill-red {
+            background: var(--red-100);
+            color: var(--red-800);
+            border-color: #fecaca;
+        }
+        .pill-blue {
+            background: var(--blue-100);
+            color: var(--blue-800);
+            border-color: #bfdbfe;
+        }
+
+        /* Workflow Box */
+        .workflow-box {
+            background: var(--bg-box);
+            border: 1px solid var(--brand-200);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 16px 0;
+        }
+        .workflow-box h3 {
+            margin-top: 0;
+            color: var(--brand-700);
+            font-size: 14px;
+        }
+        .flow-bar {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            background: var(--bg-flow);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+        .flow-node {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .flow-arrow {
+            color: var(--brand-600);
+            font-size: 10px;
+        }
+
+        /* Callout Box */
+        .callout {
+            background: var(--brand-50);
+            border-left: 4px solid var(--brand-600);
+            padding: 12px 16px;
+            border-radius: 0 10px 10px 0;
+            margin: 14px 0;
+            font-size: 13px;
+            color: var(--text-main);
+        }
+        .callout-title {
+            font-weight: 700;
+            color: var(--brand-700);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+        .callout-danger {
+            background: var(--red-100);
+            border-left: 4px solid #ef4444;
+            color: var(--red-800);
+        }
+        .callout-danger .callout-title {
+            color: var(--red-800);
+        }
+        .callout-danger strong {
+            color: var(--red-800);
+        }
+
+        /* Screenshot Box / Placeholder */
+        .screenshot-card {
+            border: 2px dashed var(--border-color);
+            background: var(--bg-body);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            text-align: center;
+        }
+        .screenshot-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 11.5px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .screenshot-tag {
+            background: var(--border-color);
+            color: var(--text-main);
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        .screenshot-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+            display: none;
+        }
+        .screenshot-placeholder-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        /* Table Styles */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin: 14px 0;
+        }
+        .data-table th, .data-table td {
+            padding: 9px 12px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+        .data-table th {
+            background: var(--brand-50);
+            color: var(--brand-700);
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        /* FAQ Accordion */
+        .faq-item {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            background: var(--bg-card);
+        }
+        .faq-question {
+            padding: 12px 16px;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-body);
+            transition: background 0.15s;
+        }
+        .faq-question:hover {
+            background: var(--brand-50);
+            color: var(--brand-600);
+        }
+        .faq-chevron {
+            font-size: 11px;
+            color: var(--text-muted);
+            transition: transform 0.2s;
+        }
+        .faq-item.open .faq-chevron {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            padding: 12px 16px;
+            font-size: 13px;
+            color: var(--text-main);
+            line-height: 1.6;
+            display: none;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-card);
+        }
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        /* Print styles */
+        @media print {
+            .sidebar, .top-header, .header-actions {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .content {
+                padding: 0 !important;
+                max-width: 100% !important;
+            }
+            .doc-section {
+                box-shadow: none !important;
+                border: none !important;
+                padding: 12px 0;
+                break-inside: avoid;
+            }
+        }
+
+        /* Responsive Mobile */
+        @media (max-width: 860px) {
+            .sidebar {
+                display: none;
+            }
+            .content {
+                padding: 16px;
+            }
+            .top-header {
+                padding: 10px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Header met Officieel PNG Logo -->
+    <header class="top-header">
+        <div class="logo-group">
+            <img src="images/logo.png" onerror="this.onerror=null;this.src='https://woltersm.github.io/Opb-Lezingen-Planner/icon-512.png'" alt="Openbare Lezingen Logo" class="logo-img">
+            <div class="logo-text">
+                <h1>Handleiding Planner</h1>
+                <p>Openbare Lezingen voor Sprekers &amp; Beheerders</p>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <!-- Search -->
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Zoek op onderwerp, knop of status..." onkeyup="handleLiveSearch()">
+            </div>
+
+            <!-- Onepager link -->
+            <a href="snelstart.html" target="_blank" class="icon-btn" title="Open de printbare snelstartgids">
+                <i class="fa-solid fa-bolt"></i>
+                <span>Snelstart</span>
+            </a>
+
+            <!-- Dark mode toggle -->
+            <button class="icon-btn" onclick="toggleTheme()" id="themeToggleBtn" title="Wissel thema">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- App Layout -->
+    <div class="app-layout">
+
+        <!-- Sticky Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="filter-tabs">
+                <button class="filter-tab active" onclick="filterSections('all')">Alles</button>
+                <button class="filter-tab" onclick="filterSections('user')">Sprekers</button>
+                <button class="filter-tab" onclick="filterSections('admin')">Beheer</button>
+            </div>
+
+            <div class="nav-category">Sprekers</div>
+            <a href="#sec-snelstart" class="nav-link"><i class="fa-solid fa-bolt"></i> 1. Snelstart</a>
+            <a href="#sec-dashboard" class="nav-link" data-role="user"><i class="fa-solid fa-house"></i> 2. Het dashboard</a>
+            <a href="#sec-planner" class="nav-link" data-role="user"><i class="fa-solid fa-calendar-check"></i> 3. De planner</a>
+            <a href="#sec-bibliotheek" class="nav-link" data-role="user"><i class="fa-solid fa-book-open"></i> 4. De bibliotheek</a>
+            <a href="#sec-instellingen" class="nav-link" data-role="user"><i class="fa-solid fa-gear"></i> 5. Instellingen &amp; Menu</a>
+
+            <div class="nav-category" data-role="admin">Beheerders</div>
+            <a href="#sec-beheer-dash" class="nav-link" data-role="admin"><i class="fa-solid fa-sliders"></i> 6. Beheerdersdashboard</a>
+            <a href="#sec-gebruikers" class="nav-link" data-role="admin"><i class="fa-solid fa-users"></i> 7. Gebruikersbeheer</a>
+            <a href="#sec-ai-importer" class="nav-link" data-role="admin"><i class="fa-solid fa-wand-magic-sparkles"></i> 8. AI Rooster Importer</a>
+
+            <div class="nav-category">Overig</div>
+            <a href="#sec-faq" class="nav-link"><i class="fa-solid fa-circle-question"></i> 9. Veelgestelde vragen</a>
+            <a href="#sec-badges" class="nav-link"><i class="fa-solid fa-tags"></i> 10. Badges &amp; Iconen</a>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content" id="mainContent">
+
+            <!-- 1. Snelstart -->
+            <section id="sec-snelstart" class="doc-section" data-role="all">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <h2>1. ⚡ Snelstart</h2>
+                </div>
+                <p>De Openbare Lezingen Planner helpt sprekers en lezingencoördinatoren om de toespraken binnen de gemeente soepel, tijdig en overzichtelijk in te plannen. De applicatie is ontworpen als een moderne web-app (PWA). Dat betekent dat je geen app-store hoeft te bezoeken: de app werkt direct in elke browser en kan met een paar tikken als zelfstandige app op het startscherm van je smartphone of computer worden geplaatst.</p>
+
+                <div class="screenshot-card">
+                    <div class="screenshot-header">
+                        <span><i class="fa-solid fa-camera"></i> Schermafbeelding Inlogscherm</span>
+                        <span class="screenshot-tag">images/01-login-scherm.png</span>
+                    </div>
+                    <img src="images/01-login-scherm.png" alt="Inlogscherm" class="screenshot-img" onload="this.style.display='block'">
+                    <p class="screenshot-placeholder-desc">Toont het logo, het e-mailinvoerveld en de knop 'Code aanvragen'.</p>
+                </div>
+
+                <h3><i class="fa-solid fa-mobile-screen"></i> App op je Telefoon Zetten</h3>
+                <p>Door de planner als app op je telefoon te installeren, opent deze altijd schermvullend zonder hinderlijke browserbalken en heb je altijd direct toegang tot je toesprakenschema:</p>
+                <ul>
+                    <li><strong>🍏 iPhone / iPad (Safari):</strong> Open de link in Safari. Tik onderin op de <strong>Deelknop</strong> <code>⎋</code> (het vierkantje met de pijl omhoog), scroll iets naar beneden en kies <strong>'Zet op beginscherm'</strong> ➕.</li>
+                    <li><strong>🤖 Android (Chrome):</strong> Open de link in Google Chrome. Tik rechtsboven op de <strong>drie puntjes</strong> <code>⋮</code> en kies <strong>'App installeren'</strong> of <strong>'Toevoegen aan startscherm'</strong> 📲.</li>
+                    <li><strong>💻 Computer (Chrome / Edge):</strong> Klik rechts in de adresbalk op het installatie-icoontje 📥 (<em>"App installeren"</em>).</li>
+                </ul>
+
+                <h3><i class="fa-solid fa-key"></i> Inloggen met Pincode</h3>
+                <p>Om toegang te krijgen zonder telkens ingewikkelde wachtwoorden te hoeven intypen — wat vooral onhandig is op een mobiele telefoon in de Koninkrijkszaal — werkt de planner met een persoonlijke <strong>4-cijferige pincode</strong>:</p>
+                <div class="flow-bar">
+                    <span class="flow-node"><i class="fa-solid fa-envelope"></i> E-mailadres invullen</span>
+                    <i class="fa-solid fa-chevron-right flow-arrow"></i>
+                    <span class="flow-node"><i class="fa-solid fa-shield-halved"></i> 6-cijferige code uit mail</span>
+                    <i class="fa-solid fa-chevron-right flow-arrow"></i>
+                    <span class="flow-node"><i class="fa-solid fa-lock"></i> 4-cijferige pincode kiezen (2x)</span>
+                </div>
+                <ol>
+                    <li>Vul je geregistreerde e-mailadres in en tik op <strong>'Code aanvragen'</strong>.</li>
+                    <li>Voer de 6-cijferige controlecode in die je per e-mail hebt ontvangen.</li>
+                    <li>Toets een persoonlijke <strong>4-cijferige pincode</strong> in en bevestig deze direct nogmaals ter controle.</li>
+                    <li>Vink <strong>'Mijn gegevens onthouden'</strong> aan. Bij een volgend bezoek verschijnt meteen het cijfertoetsenbord en log je binnen twee seconden in.</li>
+                </ol>
+                <p class="text-muted" style="font-size: 12px; margin-top: -6px;"><em>(Ben je je pincode vergeten? Tik onder het numerieke toetsenbord op <strong>'Pincode vergeten?'</strong> om direct een herstelcode per e-mail te ontvangen).</em></p>
+
+                <h3 style="margin-top: 24px;"><i class="fa-solid fa-arrows-split-up-and-left"></i> Twee Manieren van Plannen</h3>
+                <p>In de app kun je op twee manieren een lezing reserveren en inplannen: via het gemeenterooster (de Planner) of rechtstreeks vanuit de toesprakenlijst (de Bibliotheek). Zo kies je altijd de route die het beste aansluit bij jouw voorbereiding en situatie.</p>
+
+                <!-- Workflow 1 Box -->
+                <div class="workflow-box">
+                    <h3><i class="fa-solid fa-calendar-check"></i> Route 1: Plannen vanuit De Planner (Datum-gericht)</h3>
+                    <p>Deze werkwijze is ideaal wanneer je jouw persoonlijke agenda of vakantieplanning wilt afstemmen met het gemeenterooster. Je kijkt eerst welke zondagen er in een bepaalde maand nog vrij zijn en legt direct een geschikte datum vast op jouw naam. Mocht je het onderwerp van je toespraak nog niet definitief hebben gekozen, dan selecteer je eenvoudig <em>'Thema later bepalen'</em>. De datum is dan alvast veilig voor jou gereserveerd.</p>
+                    <div class="flow-bar">
+                        <span class="flow-node"><i class="fa-solid fa-house"></i> Dashboard</span>
+                        <i class="fa-solid fa-chevron-right flow-arrow"></i>
+                        <span class="flow-node"><i class="fa-solid fa-plus"></i> Lezing vastleggen</span>
+                        <i class="fa-solid fa-chevron-right flow-arrow"></i>
+                        <span class="flow-node"><i class="fa-solid fa-calendar-check"></i> Vrije datum</span>
+                        <i class="fa-solid fa-chevron-right flow-arrow"></i>
+                        <span class="flow-node"><i class="fa-solid fa-book-open"></i> Repertoire</span>
+                        <i class="fa-solid fa-chevron-right flow-arrow"></i>
+                        <span class="flow-node"><i class="fa-solid fa-check"></i> Opslaan</span>
+                    </div>
+                    <ol>
+                        <li><strong>Naar de Planner:</strong> Tik onderin op <strong>'Planner'</strong> 🗓️ (of tik op het dashboard direct op <code>[ + ] Lezing X vastleggen</code>).</li>
+                        <li><strong>Kies een vrije datum:</strong> Scroll naar de gewenste maand en tik op een datum met de tekst <span class="pill pill-green"><i class="fa-solid fa-plus"></i> Nog niet ingevuld / Vrij</span>.</li>
+                        <li><strong>Paneel schuift in:</strong> Selecteer jouw toespraak in het keuzemenu <em>'Kies een lezing uit je repertoire'</em> (of kies <em>'Thema later bepalen'</em> als je het nummer nog niet weet).</li>
+                        <li><strong>Opslaan:</strong> Tik op de knop <span class="pill pill-brand"><i class="fa-solid fa-check"></i> Opslaan</span>.</li>
+                        <li><strong>Agenda:</strong> Tik op <strong>'Toevoegen aan Google Agenda'</strong> om de toespraak inclusief zaallocatie in je persoonlijke agenda te zetten.</li>
+                    </ol>
+                    <div class="callout callout-danger" style="margin-top: 10px;">
+                        <div class="callout-title"><i class="fa-solid fa-trash-can"></i> Verhinderd? Reservering annuleren / Datum opheffen:</div>
+                        Ben je onverwacht verhinderd door ziekte of familieomstandigheden? Tik in de Planner op jouw geplande datum, klik linksonder in het paneel op het <span class="pill pill-red"><i class="fa-solid fa-trash-can"></i> Rode prullenbakje</span> en bevestig met de rode knop <strong>'Reservering Annuleren'</strong>. De datum wordt direct weer als vrije datum teruggegeven aan het gemeenterooster, zodat een andere broeder meteen kan inspringen.
+                    </div>
+                </div>
+
+                <!-- Workflow 2 Box -->
+                <div class="workflow-box">
+                    <h3><i class="fa-solid fa-book-open"></i> Route 2: Plannen vanuit De Bibliotheek (Onderwerp-gericht)</h3>
+                    <p>Deze werkwijze gebruik je wanneer je al een specifieke toespraak in gedachten hebt, bijvoorbeeld omdat je deze lezing recent grondig hebt voorbereid of omdat het tijd is om een bepaald thema uit je repertoire te houden. Je zoekt de lezing op in de catalogus. De app controleert direct of de toespraak niet recent al in de gemeente is uitgesproken (om te frequente herhaling te voorkomen) en toont alle zondagen waarop jij deze lezing kunt houden.</p>
+                    <div class="flow-bar">
+                        <span class="flow-node"><i class="fa-solid fa-book-open"></i> Lezingen</span>
+                        <i class="fa-solid fa-chevron-right flow-arrow"></i>
+                        <span class="flow-node"><i class="fa-solid fa-magnifying-glass"></i> Toespraak</span>
+                        <i class="fa-solid fa-chevron-right flow-arrow"></i>
+                        <span class="flow-node"><i class="fa-solid fa-calendar-plus"></i> Inplannen</span>
+                        <i class="fa-solid fa-chevron-right flow-arrow"></i>
+                        <span class="flow-node"><i class="fa-solid fa-calendar-day"></i> Vrije datum</span>
+                        <i class="fa-solid fa-chevron-right flow-arrow"></i>
+                        <span class="flow-node"><i class="fa-solid fa-check"></i> Opslaan</span>
+                    </div>
+                    <ol>
+                        <li><strong>Naar de Bibliotheek:</strong> Tik onderin op <strong>'Lezingen'</strong> 📚 en zoek jouw toespraak op nummer of via <span class="pill"><i class="fa-solid fa-star"></i> Mijn Repertoire</span>.</li>
+                        <li><strong>Detailvenster openen:</strong> Tik op de gewenste lezing in de lijst om de details te openen.</li>
+                        <li><strong>Inplanknop:</strong> Tik bovenaan op de knop <span class="pill pill-brand"><i class="fa-solid fa-calendar-plus"></i> Deze lezing inplannen</span>.</li>
+                        <li><strong>Kies een vrije datum:</strong> Er schuift een lijst in met de titel van jouw toespraak en alle beschikbare vrije zondagen (inclusief automatische controle op de 12-maandenregel). Tik op de gewenste datum.</li>
+                        <li><strong>Opslaan:</strong> Tik onderin op <span class="pill pill-brand"><i class="fa-solid fa-check"></i> Reservering Opslaan</span>. Het scherm <em>'Lezing succesvol ingepland!'</em> verschijnt direct.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- 2. Het dashboard -->
+            <section id="sec-dashboard" class="doc-section" data-role="user">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fa-solid fa-house"></i></div>
+                    <h2>2. 🏠 Het dashboard</h2>
+                </div>
+                <p>Het dashboard is jouw persoonlijke controlecentrum. Zodra je inlogt, zie je direct hoe het met jouw toesprakenplanning voor het lopende kalenderjaar staat:</p>
+
+                <div class="screenshot-card">
+                    <div class="screenshot-header">
+                        <span><i class="fa-solid fa-camera"></i> Schermafbeelding Het Dashboard</span>
+                        <span class="screenshot-tag">images/03-home-dashboard.png</span>
+                    </div>
+                    <img src="images/03-home-dashboard.png" alt="Het Dashboard" class="screenshot-img" onload="this.style.display='block'">
+                    <p class="screenshot-placeholder-desc">Toont de begroeting, Jaarkeuze, Donut-diagram en Eerstvolgende Lezing.</p>
+                </div>
+
+                <h3><i class="fa-solid fa-chart-pie"></i> Het Jaarquotum &amp; De Voortgangsgrafiek</h3>
+                <p>In de gemeente spreekt de lezingencoördinator met elke plaatselijke spreker een streefquotum af (bijvoorbeeld 3 of 4 openbare toespraken per kalenderjaar). Dit zorgt voor een evenwichtig en gevarieerd onderwijsprogramma voor de gemeente en voorkomt dat de toesprakenlast op de schouders van slechts enkelen rust.</p>
+                <p>De interactieve donut-grafiek maakt jouw voortgang direct inzichtelijk:</p>
+                <ul>
+                    <li>In het midden van de ring staat de verhouding, bijvoorbeeld: <strong>`0/3 Vastgelegd`</strong>.</li>
+                    <li><span class="pill pill-brand">Gepland (met thema)</span> Toespraken waarvan zowel de datum als het officiële lezingnummer definitief vastliggen.</li>
+                    <li><span class="pill pill-amber">Thema nog kiezen</span> Datums die voor jou gereserveerd zijn op het rooster, maar waar het specifieke toespraaknummer nog moet worden ingevuld.</li>
+                    <li><span class="pill">Nog vrij in te plannen</span> Het resterende aantal toespraken dat je nog moet plannen om aan jouw jaardoel te voldoen.</li>
+                </ul>
+                <p>Dankzij deze weergave zie je het hele jaar door precies waar je staat, zodat je toespraken goed over de seizoenen gespreid blijven en je nooit aan het einde van het jaar overhaast beurten hoeft in te halen.</p>
+
+                <h3><i class="fa-solid fa-bolt"></i> Snelle Actieknop bij Open Quotum</h3>
+                <p>Zolang je jouw afgesproken jaardoel nog niet hebt bereikt, helpt het dashboard je met een opvallende actieknop:  
+                <span class="pill pill-brand"><i class="fa-solid fa-plus"></i> Lezing X vastleggen</span> (<em>"Tik om een vrije datum te kiezen in [Jaar]"</em>).  
+                Door op deze knop te tikken, spring je zonder omwegen direct naar de Planner voor het betreffende jaar om meteen een geschikte datum te kiezen.</p>
+
+                <h3><i class="fa-solid fa-calendar-day"></i> Eerstvolgende Lezing</h3>
+                <p>Direct onder de voortgangsgrafiek vind je een duidelijke overzichtskaart van jouw eerstkomende spreekbeurt:</p>
+                <ul>
+                    <li><strong>Datum &amp; Aftelteller:</strong> Zie direct hoeveel dagen je nog hebt ter voorbereiding (bijv. <em>"Over 14 dagen"</em> of <em>"Morgen"</em>).</li>
+                    <li><strong>Zaallocatie:</strong> De naam en het adres van de Koninkrijkszaal waar je spreekt.</li>
+                    <li><strong>Lezinggegevens:</strong> Het toespraaknummer <code>#XX</code> en de officiële titel van de toespraak.</li>
+                    <li>Tik op de kaart om direct het afspraakpaneel met alle details te openen.</li>
+                </ul>
+            </section>
+
+            <!-- 3. De planner -->
+            <section id="sec-planner" class="doc-section" data-role="user">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                    <h2>3. 🗓️ De planner</h2>
+                </div>
+                <p>Het tabblad <strong>'Planner'</strong> 🗓️ toont het volledige gemeenterooster per kalenderjaar en per maand. Hier werken sprekers en de lezingencoördinator in hetzelfde actuele schema:</p>
+
+                <div class="screenshot-card">
+                    <div class="screenshot-header">
+                        <span><i class="fa-solid fa-camera"></i> Schermafbeelding De Planner</span>
+                        <span class="screenshot-tag">images/06-planner-maand.png</span>
+                    </div>
+                    <img src="images/06-planner-maand.png" alt="De Planner" class="screenshot-img" onload="this.style.display='block'">
+                    <p class="screenshot-placeholder-desc">Toont de maandknoppen, tellers met 'X vrij', en datumkaarten met kleuren.</p>
+                </div>
+
+                <h3><i class="fa-solid fa-calendar-days"></i> Maandknoppen &amp; Tellers</h3>
+                <p>Bovenaan de Planner navigeer je eenvoudig tussen de verschillende maanden van het jaar:</p>
+                <ul>
+                    <li><strong>Persoonlijke maandteller:</strong> Een cirkeltje toont hoeveel toespraken jij in die specifieke maand houdt. Dit voorkomt dat je per ongeluk twee toespraken te kort op elkaar plant.</li>
+                    <li><strong>Groene statuspil <span class="pill pill-green">[ X vrij ]</span>:</strong> Geeft in één oogopslag aan hoeveel zondagen in die maand nog beschikbaar zijn voor de gemeente.</li>
+                </ul>
+
+                <h3><i class="fa-solid fa-palette"></i> De Status van de Datums</h3>
+                <ul>
+                    <li><span class="pill pill-green"><i class="fa-solid fa-plus"></i> Nog niet ingevuld / Vrij</span> Deze datum staat open voor elke plaatselijke broeder om te claimen.</li>
+                    <li><span class="pill pill-brand">#XX [Titel]</span> Jouw eigen toespraak, herkenbaar aan het gekleurde lezingbadge en de officiële titel.</li>
+                    <li><span class="pill pill-amber">Thema nog kiezen</span> Datum staat vast op jouw naam, zodat niemand anders deze kan bezetten terwijl jij nadenkt over je onderwerp.</li>
+                    <li><span class="pill pill-blue">Andere spreker of Gastspreker</span> Toont de naam van de broeder, herkomstgemeente en titel van zijn lezing.</li>
+                </ul>
+
+                <h3><i class="fa-solid fa-window-maximize"></i> Het Inschuifpaneel (Reserveren &amp; Bewerken)</h3>
+                <p>Wanneer je op een datum tikt, schuift vanaf de zijkant het beheerpaneel in:</p>
+                <ul>
+                    <li><strong>Kies een lezing uit je repertoire:</strong> Kies snel een lezing uit jouw favorieten (<code>⭐</code>), blader door de complete catalogus of selecteer <em>'Thema later bepalen'</em>.</li>
+                    <li><strong>Thema speciale lezing:</strong> Een optioneel invoerveld voor bijzondere gelegenheden, zoals een kringbezoek of herdenkingslezing.</li>
+                    <li><strong>Knop Opslaan:</strong> Tik op <span class="pill pill-brand"><i class="fa-solid fa-check"></i> Opslaan</span> om de toespraak definitief vast te leggen.</li>
+                    <li><strong>Toevoegen aan Google Agenda:</strong> Exporteert de toespraak direct met aanvangstijd, zaaladres en thema naar jouw agenda.</li>
+                </ul>
+
+                <div class="callout callout-danger">
+                    <div class="callout-title"><i class="fa-solid fa-trash-can"></i> Reservering annuleren / Datum opheffen:</div>
+                    Ben je verhinderd? Tik in de Planner op jouw gereserveerde datum. Linksonder in het paneel bevindt zich het <strong>rode prullenbakje</strong> 🗑️. Klik hierop en bevestig in het pop-upvenster met de rode knop <strong>'Reservering Annuleren'</strong>. De reservering wordt gewist en de datum is direct weer beschikbaar als vrije datum voor het hele lezersbestand.
+                </div>
+            </section>
+
+            <!-- 4. De bibliotheek -->
+            <section id="sec-bibliotheek" class="doc-section" data-role="user">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fa-solid fa-book-open"></i></div>
+                    <h2>4. 📚 De bibliotheek</h2>
+                </div>
+                <p>Het tabblad <strong>'Lezingen'</strong> 📚 bevat de complete officiële catalogus van alle openbare lezingen volgens de S-34 richtlijnen (schema's 1 t/m 194+). De bibliotheek dient als digitaal naslagwerk tijdens je voorbereiding en als handig startpunt voor het plannen van toespraken:</p>
+
+                <div class="screenshot-card">
+                    <div class="screenshot-header">
+                        <span><i class="fa-solid fa-camera"></i> Schermafbeelding De Bibliotheek</span>
+                        <span class="screenshot-tag">images/04-lezingen-catalogus.png</span>
+                    </div>
+                    <img src="images/04-lezingen-catalogus.png" alt="De Bibliotheek" class="screenshot-img" onload="this.style.display='block'">
+                    <p class="screenshot-placeholder-desc">Toont de zoekbalk, categorieknoppen, 'Mijn Repertoire' ster en de lezingenlijst.</p>
+                </div>
+
+                <h3><i class="fa-solid fa-filter"></i> Zoeken &amp; Thematische Filters</h3>
+                <ul>
+                    <li><strong>Zoekbalk:</strong> Zoek razendsnel op toespraaknummer (bijvoorbeeld <code>24</code> of <code>#24</code>), op een trefwoord uit de titel of op een specifieke Bijbeltekst.</li>
+                    <li><strong>Themacategorieën:</strong> Filter met één tik op Bijbelse hoofdthema's, zoals <em>Gods Koninkrijk</em>, <em>Het Gezin</em>, <em>Bijbelse Profetieën</em> en <em>Christelijke Levenswandel</em>.</li>
+                    <li><strong>⭐ Mijn Repertoire:</strong> Vink de ster aan om uitsluitend de toespraken te tonen die jij actief hebt voorbereid en gereed hebt om uit te spreken.</li>
+                </ul>
+
+                <h3><i class="fa-solid fa-pen-to-square"></i> Inhoud &amp; Persoonlijke Sprekersnotities</h3>
+                <p>Tik op een lezing in de lijst om het detailpaneel te openen:</p>
+                <ul>
+                    <li><strong>Doel &amp; Kernteksten:</strong> Bekijk het centrale leerdoel van het schema en de belangrijkste schriftplaatsen.</li>
+                    <li><strong>Gestructureerde Samenvatting:</strong> Een helder overzicht van de hoofdpunten en subthema's van de lezing.</li>
+                    <li><strong>Mijn Notities:</strong> Een persoonlijk aantekeningenveld voor iedere spreker. Hier noteer je eigen illustraties, actuele voorbeelden of persoonlijke tijdsindelingen. Zodra je stopt met typen, verschijnt het groene label <span class="pill pill-green">Opgeslagen!</span>. Jouw notities worden veilig gekoppeld aan jouw profiel op de server bewaard.</li>
+                    <li><strong>⚠️ Automatische Herhaalwaarschuwing:</strong> De planner bewaakt dat toespraken in de gemeente niet te snel herhaald worden. Als een lezing minder dan 12 maanden geleden in de eigen gemeente is gehouden, toont de app direct een duidelijke oranje waarschuwing met de datum en de naam van de vorige spreker. Dit waarborgt fris en evenwichtig onderwijs.</li>
+                    <li><strong>Actieknop 'Deze lezing inplannen':</strong> Bovenaan elk detailvenster bevindt zich de knop <span class="pill pill-brand"><i class="fa-solid fa-calendar-plus"></i> Deze lezing inplannen</span>. Hiermee verbind je je studie direct met het rooster en kies je in één stap een beschikbare zondag!</li>
+                </ul>
+            </section>
+
+            <!-- 5. Instellingen & Menu -->
+            <section id="sec-instellingen" class="doc-section" data-role="user">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fa-solid fa-gear"></i></div>
+                    <h2>5. ⚙️ Instellingen &amp; Menu</h2>
+                </div>
+                <p>Tik rechtsboven in de app op het <strong>hamburger-icoon</strong> <code>☰</code> om het persoonlijke voorkeurenmenu te openen:</p>
+
+                <div class="screenshot-card">
+                    <div class="screenshot-header">
+                        <span><i class="fa-solid fa-camera"></i> Schermafbeelding Instellingen &amp; Menu</span>
+                        <span class="screenshot-tag">images/09-zijpaneel-instellingen.png</span>
+                    </div>
+                    <img src="images/09-zijpaneel-instellingen.png" alt="Instellingen &amp; Menu" class="screenshot-img" onload="this.style.display='block'">
+                    <p class="screenshot-placeholder-desc">Toont de avatar, Quota-teller, Thema Licht/Donker, e-mailnotificaties en installatieknop.</p>
+                </div>
+
+                <ul>
+                    <li><strong>Avatar &amp; Initialen:</strong> Stel een persoonlijke initiaal of herkenbare emoji in.</li>
+                    <li><strong>Jaarlijkse Quota-stand:</strong> Toont direct de actuele stand van jouw lezingenquotum (bijvoorbeeld <code>Quota 2026: 1 / 3</code>).</li>
+                    <li><strong>Thema (Licht / Donker):</strong> Schakel soepel tussen de lichte modus voor overdag en de donkere modus voor rustige ogen bij gedimd licht of op het podium.</li>
+                    <li><strong>Accentkleur:</strong> Kies een persoonlijke accentkleur voor knoppen en markeringen binnen de app.</li>
+                    <li><strong>Automatische E-mailnotificaties:</strong>
+                        <ul style="margin-top: 6px;">
+                            <li>☑️ <em>Herinnering 1 week vooraf:</em> Stuurt exact 7 dagen voor jouw geplande toespraak om 08:00 uur een complete herinneringsmail met zaaladres en thema.</li>
+                            <li>☑️ <em>Maandelijkse quotumupdate:</em> Stuurt op de 1e van de maand om 09:00 uur een update zolang jouw afgesproken jaardoel nog niet volledig is ingepland.</li>
+                            <li>☑️ <em>Seizoensuitnodiging:</em> Stuurt in september en januari een seizoensherinnering om tijdig datums vast te leggen.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Test e-mail versturen:</strong> Stuurt direct een testbericht naar jouw mailbox om te controleren of notificaties goed doorkomen.</li>
+                    <li><strong>Pincode wijzigen:</strong> Pas op elk gewenst moment jouw 4-cijferige toegangscode aan.</li>
+                    <li><strong>❓ Handleiding &amp; Help:</strong> Opent het handige in-app helpvenster met zoekfunctie, direct binnen de app.</li>
+                    <li><strong>Uitloggen:</strong> Sluit je actieve sessie veilig af op het apparaat.</li>
+                </ul>
+            </section>
+
+            <!-- 6. Beheerdersdashboard -->
+            <section id="sec-beheer-dash" class="doc-section" data-role="admin">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fa-solid fa-sliders"></i></div>
+                    <h2>6. 🛡️ Beheerdersdashboard</h2>
+                </div>
+                <p>Dit gedeelte is exclusief bestemd voor de <strong>lezingencoördinator</strong> en aangewezen mede-beheerders. Het biedt alle instrumenten om het toesprakenrooster van de gemeente overzichtelijk en actueel te houden:</p>
+
+                <div class="screenshot-card">
+                    <div class="screenshot-header">
+                        <span><i class="fa-solid fa-camera"></i> Schermafbeelding Beheerdersdashboard</span>
+                        <span class="screenshot-tag">images/10-beheer-dashboard.png</span>
+                    </div>
+                    <img src="images/10-beheer-dashboard.png" alt="Beheerdersdashboard" class="screenshot-img" onload="this.style.display='block'">
+                    <p class="screenshot-placeholder-desc">Toont beheerstatistieken, openstaand gemeentequotum en de knop 'PDF Mailen'.</p>
+                </div>
+
+                <h3><i class="fa-solid fa-chart-line"></i> Realtime Gemeentestatistieken</h3>
+                <p>Het dashboard geeft de coördinator direct inzicht in de gezondheid van de gemeenteplanning:</p>
+                <ul>
+                    <li><strong>Vervulde vs. Open Zondagen:</strong> Hoeveel spreekbeurten in het lopende jaar zijn al definitief bezet en hoeveel datums staan nog open.</li>
+                    <li><strong>Totaal Sprekersquotum:</strong> De som van alle afgesproken spreekbeurten in de gemeente en het aantal lezingen dat plaatselijke broeders nog moeten inplannen.</li>
+                    <li><strong>Datums zonder thema:</strong> Een direct overzicht van sprekers die al wel een datum hebben gereserveerd, maar nog geen lezingnummer hebben doorgegeven.</li>
+                </ul>
+
+                <h3><i class="fa-solid fa-file-pdf"></i> Knop 'PDF Mailen'</h3>
+                <p>Met één klik op de knop <strong>'PDF Mailen'</strong> genereert het systeem een overzichtelijk, printbaar PDF-jaarrooster van de voltallige gemeente. Dit document wordt binnen enkele seconden als e-mailbijlage verzonden naar de lezingencoördinator. Ideaal voor de ouderlingenvergadering of voor op het mededelingenbord in de Koninkrijkszaal.</p>
+            </section>
+
+            <!-- 7. Gebruikersbeheer -->
+            <section id="sec-gebruikers" class="doc-section" data-role="admin">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fa-solid fa-users"></i></div>
+                    <h2>7. 👥 Gebruikersbeheer</h2>
+                </div>
+                <p>In het beheertabblad <strong>'Gebruikers'</strong> onderhoudt de coördinator het complete sprekersbestand van de gemeente:</p>
+
+                <div class="screenshot-card">
+                    <div class="screenshot-header">
+                        <span><i class="fa-solid fa-camera"></i> Schermafbeelding Gebruikersbeheer</span>
+                        <span class="screenshot-tag">images/11-beheer-gebruikers.png</span>
+                    </div>
+                    <img src="images/11-beheer-gebruikers.png" alt="Gebruikersbeheer" class="screenshot-img" onload="this.style.display='block'">
+                    <p class="screenshot-placeholder-desc">Toont de sprekerslijst met quota, rollen en de knop voor herinneringsmails.</p>
+                </div>
+
+                <ul>
+                    <li><strong>Nieuwe spreker toevoegen:</strong> Klik op <code>+ Nieuwe Gebruiker</code>, vul de naam, het e-mailadres, de zaallocatie en het gewenste jaarquotum in. Laat <em>'Verstuur activatiemail'</em> aangevinkt om hem direct een welkomstmail met inlogcode te sturen.</li>
+                    <li><strong>Acties per broeder:</strong> Gebruik het potlood-icoon om gegevens aan te passen of het sleutel-icoon om handmatig een resetcode te sturen wanneer iemand zijn inloggegevens kwijt is.</li>
+                    <li><strong>Deactiveren:</strong> Schakel het vinkje <em>'Actief'</em> uit als een broeder tijdelijk geen toespraken kan houden (bijvoorbeeld wegens langdurige ziekte of verblijf in het buitenland). Zijn toespraakhistorie blijft volledig bewaard.</li>
+                    <li><strong>📢 Herinneringsmail versturen (Broadcast):</strong> Klik bovenaan op het papieren vliegtuigje <i class="fa-solid fa-paper-plane text-brand-600"></i> om met één klik een persoonlijke herinnering te sturen naar alle sprekers met een openstaand quotum, inclusief overzicht van hun reeds vastgelegde datums.</li>
+                </ul>
+            </section>
+
+            <!-- 8. AI Rooster Importer -->
+            <section id="sec-ai-importer" class="doc-section" data-role="admin">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <h2>8. 🪄 AI Rooster Importer</h2>
+                </div>
+                <p>Wanneer de gemeente overstapt vanuit een papieren schema, Word-bestand (<code>.docx</code>) of PDF-document, hoeft de coördinator niet alle datums handmatig over te typen. De geïntegreerde Google Gemini AI leest bestaande roosters binnen enkele seconden automatisch uit:</p>
+
+                <div class="screenshot-card">
+                    <div class="screenshot-header">
+                        <span><i class="fa-solid fa-camera"></i> Schermafbeelding AI Rooster Importer</span>
+                        <span class="screenshot-tag">images/13-beheer-ai-importer.png</span>
+                    </div>
+                    <img src="images/13-beheer-ai-importer.png" alt="AI Rooster Importer" class="screenshot-img" onload="this.style.display='block'">
+                    <p class="screenshot-placeholder-desc">Toont het uploadvak, analyse en de voorvertoningstabel met matchpillen.</p>
+                </div>
+
+                <ol>
+                    <li><strong>Bestand uploaden:</strong> Sleep een Word-, PDF- of afbeeldingsbestand (foto/scan) in het uploadvak, of selecteer een bestand rechtstreeks uit de gekoppelde Google Drive map.</li>
+                    <li><strong>Automatische AI-analyse:</strong> Google Gemini AI herkent direct alle datums, sprekersnamen en S-34 toespraaknummers in de tekst.</li>
+                    <li><strong>Controle in de Voorvertoningstabel:</strong> Controleer de gegevens aan de hand van de duidelijke match-pillen:
+                        <ul style="margin-top: 6px;">
+                            <li><span class="pill pill-green">Nieuwe datum</span> Wordt nieuw toegevoegd aan het gemeenterooster.</li>
+                            <li><span class="pill pill-amber">Bestaand overschrijven</span> Wijzigt een reeds bestaande datum met actuele informatie.</li>
+                            <li><span class="pill pill-blue">Gekoppeld aan: [Naam]</span> Automatisch herkend als geregistreerde spreker van de gemeente.</li>
+                            <li><span class="pill">Gastspreker</span> Buitenlandse spreker of broeder uit een naburige gemeente.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Definitief Synchroniseren:</strong> Klik op <strong>'Synchroniseren naar Rooster'</strong> om het live gemeenteschema in één keer bij te werken.</li>
+                </ol>
+            </section>
+
+            <!-- 9. Veelgestelde vragen -->
+            <section id="sec-faq" class="doc-section" data-role="all">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fa-solid fa-circle-question"></i></div>
+                    <h2>9. ❓ Veelgestelde vragen</h2>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span>Ik ben mijn 4-cijferige pincode vergeten. Wat moet ik doen?</span>
+                        <i class="fa-solid fa-chevron-down faq-chevron"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Tik op het inlogscherm onder het numerieke toetsenbord op <strong>'Pincode vergeten?'</strong>. Er wordt direct een 6-cijferige controlecode naar je e-mail gestuurd waarmee je direct een nieuwe 4-cijferige pincode instelt.
+                    </div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span>Ik ben onverwacht verhinderd voor een geplande toespraak. Hoe geef ik mijn datum vrij?</span>
+                        <i class="fa-solid fa-chevron-down faq-chevron"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Tik in de Planner op jouw gereserveerde datum. Linksonder in het inschuifpaneel klik je op het <strong>rode prullenbakje</strong> 🗑️. Bevestig in de pop-up met de rode knop <strong>'Reservering Annuleren'</strong>. De datum is direct weer beschikbaar als vrije datum voor een andere broeder.
+                    </div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span>Kan ik een datum reserveren als ik het lezingnummer nog niet weet?</span>
+                        <i class="fa-solid fa-chevron-down faq-chevron"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Ja! Kies bij het reserveren in het paneel voor <strong>'Thema later bepalen'</strong>. De datum staat dan direct exclusief op jouw naam gereserveerd. Zodra je weet welk nummer je wilt houden, tik je op jouw datum om het toespraaknummer toe te voegen.
+                    </div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span>Waarom ontvang ik geen bevestigingsmail of herinnering?</span>
+                        <i class="fa-solid fa-chevron-down faq-chevron"></i>
+                    </div>
+                    <div class="faq-answer">
+                        1. Controleer je <strong>Spam- of Ongewenste e-mailmap</strong>.<br>
+                        2. Open in de app het menu <code>☰</code> rechtsboven en controleer of de vinkjes bij je notificaties aanstaan.<br>
+                        3. Tik in het menu op <strong>'Test e-mail versturen'</strong> om te testen of e-mails van de server goed doorkomen.
+                    </div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span>Wat betekent de oranje herhaalwaarschuwing in de bibliotheek?</span>
+                        <i class="fa-solid fa-chevron-down faq-chevron"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Dit betekent dat deze specifieke toespraak minder dan 12 maanden geleden al in de gemeente is uitgesproken. Om te zorgen voor gevarieerd onderwijs in de gemeente, kun je bij voorkeur een ander nummer uit je repertoire kiezen.
+                    </div>
+                </div>
+            </section>
+
+            <!-- 10. Badges & Iconen -->
+            <section id="sec-badges" class="doc-section" data-role="all">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fa-solid fa-tags"></i></div>
+                    <h2>10. 🏷️ Badges &amp; Iconen</h2>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Icoon / Badge</th>
+                            <th>Locatie in de app</th>
+                            <th>Betekenis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><i class="fa-solid fa-house text-brand-600"></i> Home</td>
+                            <td>Onderste navigatiebalk</td>
+                            <td>Het dashboard met jouw persoonlijke voortgangsdonut en eerstvolgende lezing.</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa-solid fa-calendar-check text-brand-600"></i> Planner</td>
+                            <td>Onderste navigatiebalk</td>
+                            <td>Het gemeenschappelijke gemeenterooster per jaar en maand.</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa-solid fa-book-open text-brand-600"></i> Lezingen</td>
+                            <td>Onderste navigatiebalk</td>
+                            <td>De complete S-34 catalogus met schema's, teksten en sprekersnotities.</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa-solid fa-gear text-brand-600"></i> Instellingen</td>
+                            <td>Navigatiebalk / Menu</td>
+                            <td>Persoonlijke voorkeuren, thema's, notificaties en accountbeheer.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pill pill-green"><i class="fa-solid fa-plus"></i> Nog niet ingevuld / Vrij</span></td>
+                            <td>Planner rooster</td>
+                            <td>Beschikbare datum om te reserveren door een plaatselijke spreker.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pill pill-brand">#XX [Titel]</span></td>
+                            <td>Planner &amp; Dashboard</td>
+                            <td>Jouw eigen toespraak met het definitief vastgelegde toespraaknummer.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pill pill-amber">Thema nog kiezen</span></td>
+                            <td>Dashboard &amp; Planner</td>
+                            <td>Datum staat vast op jouw naam; het toespraaknummer volgt nog.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pill pill-red"><i class="fa-solid fa-trash-can"></i> Rood prullenbakje</span></td>
+                            <td>Planner paneel linksonder</td>
+                            <td>Reservering van een geplande datum annuleren en vrijgeven.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pill pill-brand"><i class="fa-solid fa-calendar-plus"></i> Deze lezing inplannen</span></td>
+                            <td>Bibliotheek detailvenster</td>
+                            <td>Direct alle beschikbare vrije zondagen bekijken voor de gekozen lezing.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pill"><i class="fa-solid fa-plus"></i> Lezing X vastleggen</span></td>
+                            <td>Het dashboard</td>
+                            <td>Met één tik naar de Planner springen bij een openstaand jaarquotum.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pill"><i class="fa-solid fa-star text-amber-500"></i> Mijn Repertoire</span></td>
+                            <td>Bibliotheek filter</td>
+                            <td>Filtert de catalogus op toespraken die jij actief beheerst.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pill pill-brand"><i class="fa-solid fa-paper-plane"></i> Broadcast mail</span></td>
+                            <td>Gebruikersbeheer</td>
+                            <td>Herinneringsmail sturen naar alle sprekers met een openstaand quotum.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Interactive Script -->
+    <script>
+        // Theme toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            document.getElementById('themeToggleBtn').innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+            localStorage.setItem('docTheme', isDark ? 'dark' : 'light');
+        }
+        if (localStorage.getItem('docTheme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('themeToggleBtn').innerHTML = '<i class="fa-solid fa-sun"></i>';
+        }
+
+        // FAQ Toggle
+        function toggleFaq(element) {
+            element.classList.toggle('open');
+        }
+
+        // Filter sections (All / User / Admin)
+        function filterSections(role) {
+            document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const sections = document.querySelectorAll('.doc-section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const navCategories = document.querySelectorAll('.nav-category');
+
+            sections.forEach(sec => {
+                const secRole = sec.getAttribute('data-role');
+                if (role === 'all' || secRole === 'all' || secRole === role) {
+                    sec.style.display = 'block';
+                } else {
+                    sec.style.display = 'none';
+                }
+            });
+
+            navLinks.forEach(link => {
+                const linkRole = link.getAttribute('data-role');
+                if (role === 'all' || !linkRole || linkRole === role) {
+                    link.style.display = 'flex';
+                } else {
+                    link.style.display = 'none';
+                }
+            });
+
+            navCategories.forEach(cat => {
+                const catRole = cat.getAttribute('data-role');
+                if (role === 'all' || !catRole || catRole === role) {
+                    cat.style.display = 'block';
+                } else {
+                    cat.style.display = 'none';
+                }
+            });
+        }
+
+        // Live Search
+        function handleLiveSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const sections = document.querySelectorAll('.doc-section');
+
+            if (!query) {
+                sections.forEach(sec => {
+                    sec.style.display = 'block';
+                    removeHighlights(sec);
+                });
+                return;
+            }
+
+            sections.forEach(sec => {
+                removeHighlights(sec);
+                const text = sec.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    sec.style.display = 'block';
+                    highlightQuery(sec, query);
+                } else {
+                    sec.style.display = 'none';
+                }
+            });
+        }
+
+        function highlightQuery(element, query) {
+            const targets = element.querySelectorAll('p, h2, h3, li, td, .callout');
+            targets.forEach(target => {
+                const originalHtml = target.innerHTML;
+                const lowerText = target.innerText.toLowerCase();
+                if (lowerText.includes(query) && !target.querySelector('img') && !target.querySelector('table')) {
+                    const regex = new RegExp(`(${escapeRegex(query)})`, 'gi');
+                    target.innerHTML = originalHtml.replace(regex, '<mark>$1</mark>');
+                }
+            });
+        }
+
+        function removeHighlights(element) {
+            const marks = element.querySelectorAll('mark');
+            marks.forEach(mark => {
+                const parent = mark.parentNode;
+                parent.replaceChild(document.createTextNode(mark.innerText), mark);
+                parent.normalize();
+            });
+        }
+
+        function escapeRegex(str) {
+            return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        // Scrollspy
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.doc-section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            let currentSecId = '';
+
+            sections.forEach(sec => {
+                const rect = sec.getBoundingClientRect();
+                if (rect.top <= 120 && rect.bottom >= 120) {
+                    currentSecId = sec.id;
+                }
+            });
+
+            if (currentSecId) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + currentSecId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
