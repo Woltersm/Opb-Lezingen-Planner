@@ -9,89 +9,24 @@
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <meta name="color-scheme" content="dark light">
-  <meta name="theme-color" id="wrapperThemeColor" content="#241E1C">
+  <meta name="theme-color" id="wrapperThemeColor" content="#0F3250">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <script>
-    // Direct thema en donkere modus toepassen vóór rendering
+    // Direct achtergrondkleur instellen zodat er 0ms overgangsflits is met native Android/iOS
     try {
-      const savedDark = localStorage.getItem('ol_pwa_is_dark');
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const isDark = savedDark === 'true' || (savedDark === null && prefersDark);
-      if (isDark) {
-        document.documentElement.classList.add('dark');
-        document.documentElement.style.backgroundColor = '#241E1C';
-        document.documentElement.style.colorScheme = 'dark';
-      } else {
-        document.documentElement.classList.remove('dark');
-        document.documentElement.style.backgroundColor = '#FAF7F4';
-        document.documentElement.style.colorScheme = 'light';
-      }
-      const savedTheme = localStorage.getItem('ol_pwa_theme_name') || 'terracotta';
-      document.documentElement.setAttribute('data-color-theme', savedTheme);
-      const meta = document.getElementById('wrapperThemeColor');
-      if (meta) meta.setAttribute('content', isDark ? '#241E1C' : '#FAF7F4');
+      document.documentElement.style.backgroundColor = '#0F3250';
+      document.documentElement.style.colorScheme = 'dark';
     } catch(e) {}
   </script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --bg-canvas: #FAF7F4;
-      --title-color: #0F172A;
-      --slogan-line1: #334155;
-      --brand-primary: #B54115;
-      --brand-text-dark: #F5AD80;
-      --logo-body: #9C3B19;
-      --logo-inner: #BF5732;
-      --logo-dark: #451405;
-      --bar-bg: rgba(203, 213, 225, 0.8);
-      --municipality: #94A3B8;
-    }
-    html.dark {
-      --bg-canvas: #241E1C;
-      --title-color: #FFFFFF;
-      --slogan-line1: #E2E8F0;
-      --bar-bg: rgba(255, 255, 255, 0.15);
-      --municipality: #64748B;
-    }
-    html[data-color-theme="ocean"] {
-      --brand-primary: #3A60A2;
-      --brand-text-dark: #38BDF8;
-      --logo-body: #3A60A2;
-      --logo-inner: #577BBB;
-      --logo-dark: #082B54;
-    }
-    html[data-color-theme="sage"] {
-      --brand-primary: #396A46;
-      --brand-text-dark: #4ADE80;
-      --logo-body: #396A46;
-      --logo-inner: #558863;
-      --logo-dark: #14301C;
-    }
-    html[data-color-theme="amber"] {
-      --brand-primary: #AA6C1B;
-      --brand-text-dark: #FBBF24;
-      --logo-body: #AA6C1B;
-      --logo-inner: #C88937;
-      --logo-dark: #4A2B04;
-    }
-    html[data-color-theme="purple"] {
-      --bg-canvas: #1F142E;
-      --title-color: #FFFFFF;
-      --slogan-line1: #E2E8F0;
-      --brand-primary: #5B3C88;
-      --brand-text-dark: #C084FC;
-      --logo-body: #522A7E;
-      --logo-inner: #6E4892;
-      --logo-dark: #251243;
-    }
-
     html, body {
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background-color: var(--bg-canvas);
+      background-color: #0F3250;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       user-select: none;
       -webkit-user-select: none;
@@ -103,64 +38,65 @@
       display: block;
     }
 
-    /* Splash Screen Overlay */
+    /* Splash Screen Overlay - Exact passend op het native Android/iOS scherm (#0F3250) */
     #pwaSplashScreen {
       position: fixed;
       inset: 0;
       z-index: 99999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-      background-color: var(--bg-canvas);
+      background-color: #0F3250;
       transition: opacity 0.45s ease-out;
       opacity: 1;
       pointer-events: auto;
     }
 
-    @keyframes splashPulse {
-      0%, 100% {
-        transform: scale(1);
-        filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.14));
-      }
-      50% {
-        transform: scale(1.04);
-        filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.24));
-      }
-    }
-    .splash-logo {
-      width: 96px;
-      height: 96px;
-      animation: splashPulse 2.6s ease-in-out infinite;
-      will-change: transform;
-      margin-bottom: 1.25rem;
-    }
-    @media (min-width: 640px) {
-      .splash-logo {
-        width: 112px;
-        height: 112px;
-      }
+    /* Exact 50% / 50% centrering van het blauwe PNG icoon */
+    .splash-center-icon {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 10;
     }
 
-    .splash-center {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .splash-native-img {
+      width: 61.6vw;
+      max-width: 290px;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.18));
+    }
+
+    /* Tekst en Slogan: Elegant en vrij ONDER de kalender geplaatst */
+    .splash-bottom-slogan {
+      position: absolute;
+      bottom: max(2.5rem, 7vh);
+      left: 0;
+      right: 0;
       text-align: center;
+      z-index: 20;
+      padding: 0 1rem;
+      animation: sloganFadeIn 0.35s ease-out forwards;
+    }
+
+    @keyframes sloganFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .splash-title {
-      font-size: 1.65rem;
+      font-size: 1.25rem;
       font-weight: 800;
-      color: var(--title-color);
-      letter-spacing: -0.02em;
-      line-height: 1.15;
-      margin-bottom: 0.5rem;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 0.35rem;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
     }
     @media (min-width: 640px) {
       .splash-title {
-        font-size: 1.95rem;
+        font-size: 1.45rem;
       }
     }
 
@@ -168,79 +104,62 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.15rem;
+      gap: 0.1rem;
     }
 
     .slogan-line1 {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      color: var(--slogan-line1);
+      color: #BFDBFE;
       letter-spacing: 0.02em;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     }
     @media (min-width: 640px) {
       .slogan-line1 {
-        font-size: 1.05rem;
+        font-size: 1rem;
       }
     }
 
     .slogan-accent {
       font-size: 1.35rem;
       font-weight: 900;
-      color: var(--brand-primary);
+      color: #38BDF8;
       letter-spacing: 0.04em;
       text-transform: uppercase;
       line-height: 1.15;
-      transition: color 0.2s ease;
-    }
-    html.dark .slogan-accent {
-      color: var(--brand-text-dark);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
     }
     @media (min-width: 640px) {
       .slogan-accent {
-        font-size: 1.6rem;
+        font-size: 1.55rem;
       }
     }
 
     .municipality {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--municipality);
-      margin-top: 0.85rem;
+      color: #94A3B8;
+      margin-top: 0.6rem;
     }
   </style>
 </head>
 <body>
-  <!-- 3-Seconden Splash Screen (Exact gecentreerd & Naadloos) -->
+  <!-- 3-Seconden Splash Screen (Exact passend op Android/iOS WebAPK screenshot) -->
   <div id="pwaSplashScreen">
-    <div class="splash-center">
-      <div class="splash-logo">
-        <svg viewBox="0 0 832 915" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
-          <rect x="3" y="72" width="786" height="726" rx="115" fill="var(--logo-body)"/>
-          <path d="M 63 252 H 729 V 690 A 48 48 0 0 1 681 738 H 111 A 48 48 0 0 1 63 690 Z" fill="var(--logo-inner)"/>
-          <rect x="131" y="2" width="69" height="140" rx="34.5" fill="var(--logo-dark)"/>
-          <rect x="299" y="2" width="68" height="140" rx="34" fill="var(--logo-dark)"/>
-          <rect x="427" y="2" width="68" height="140" rx="34" fill="var(--logo-dark)"/>
-          <rect x="594" y="2" width="68" height="140" rx="34" fill="var(--logo-dark)"/>
-          <rect x="131" y="303" width="90" height="86" rx="14" fill="var(--logo-dark)"/>
-          <rect x="275" y="303" width="90" height="86" rx="14" fill="var(--logo-dark)"/>
-          <rect x="424" y="303" width="89" height="86" rx="14" fill="var(--logo-dark)"/>
-          <rect x="572" y="303" width="89" height="86" rx="14" fill="var(--logo-dark)"/>
-          <rect x="131" y="450" width="90" height="85" rx="14" fill="var(--logo-dark)"/>
-          <rect x="275" y="450" width="90" height="85" rx="14" fill="var(--logo-dark)"/>
-          <rect x="131" y="592" width="90" height="86" rx="14" fill="var(--logo-dark)"/>
-          <path d="M 480 461 H 742 A 64 64 0 0 1 806 525 V 709 A 64 64 0 0 1 742 773 H 644 L 510 889 V 773 H 480 A 64 64 0 0 1 416 709 V 525 A 64 64 0 0 1 480 461 Z" fill="var(--logo-dark)" stroke="#FFFFFF" stroke-width="50" stroke-linejoin="round"/>
-        </svg>
-      </div>
+    <!-- 1. Het Blauwe Icoon (Exact op 50% verticaal en 50% horizontaal) -->
+    <div class="splash-center-icon">
+      <img src="icon-512.png" alt="Openbare Lezingen Kalender" class="splash-native-img">
+    </div>
 
+    <!-- 2. De Tekst & Slogan: Zindelijk en ruim ONDER het icoon -->
+    <div class="splash-bottom-slogan">
       <h1 class="splash-title">Openbare Lezingen</h1>
-
       <div class="slogan-box">
         <p class="slogan-line1">Zoek, Selecteer</p>
         <p class="slogan-accent">&amp; Plan</p>
       </div>
-
       <p class="municipality">Het Gooi Noord</p>
     </div>
   </div>
@@ -269,21 +188,6 @@
       if (!event.data) return;
       if (event.data.themeColor) {
         document.getElementById('wrapperThemeColor').setAttribute('content', event.data.themeColor);
-        document.documentElement.style.backgroundColor = event.data.themeColor;
-        document.body.style.backgroundColor = event.data.themeColor;
-        try { localStorage.setItem('ol_pwa_theme_color', event.data.themeColor); } catch(e) {}
-      }
-      if (event.data.themeName) {
-        document.documentElement.setAttribute('data-color-theme', event.data.themeName);
-        try { localStorage.setItem('ol_pwa_theme_name', event.data.themeName); } catch(e) {}
-      }
-      if (typeof event.data.isDark === 'boolean') {
-        if (event.data.isDark) {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-        try { localStorage.setItem('ol_pwa_is_dark', event.data.isDark ? 'true' : 'false'); } catch(e) {}
       }
       if (event.data.action === 'exitApp') {
         try { window.close(); } catch(e) {}
