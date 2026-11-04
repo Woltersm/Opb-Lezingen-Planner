@@ -188,6 +188,8 @@
       if (!event.data) return;
       if (event.data.themeColor) {
         document.getElementById('wrapperThemeColor').setAttribute('content', event.data.themeColor);
+        document.documentElement.style.backgroundColor = event.data.themeColor;
+        document.body.style.backgroundColor = event.data.themeColor;
       }
       if (event.data.action === 'exitApp') {
         try { window.close(); } catch(e) {}
