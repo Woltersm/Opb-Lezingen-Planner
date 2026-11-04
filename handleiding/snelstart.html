@@ -353,7 +353,7 @@
                 max-width: 100%;
                 background: white !important;
             }
-            .print-btn {
+            .mail-icon-btn {
                 display: none;
             }
             .step-card, .workflow-card, .intro-banner {
@@ -381,8 +381,8 @@
                 <p class="subtitle">Snelstartgids voor Sprekers — Dashboard &amp; Twee Manieren van Plannen</p>
             </div>
         </div>
-        <button class="print-btn" onclick="window.print()">
-            <i class="fa-solid fa-print"></i> Afdrukken / PDF
+        <button type="button" class="mail-icon-btn" id="mailGuideBtn" onclick="sendGuideEmail()" title="Snelstartgids als PDF naar je e-mail sturen">
+            <i class="fa-solid fa-paper-plane" id="mailGuideIcon"></i>
         </button>
     </header>
 
@@ -523,6 +523,74 @@
         </div>
     </footer>
 </div>
+
+<!-- Toast Melding -->
+<div id="toast" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 10px 18px; border-radius: 9999px; font-size: 13px; font-weight: 600; display: none; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,0.3); align-items: center; gap: 8px;"></div>
+
+<script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwFVihPtRINd254W2VzhzHednnbVlWiL_MAo1HnzG7CutgahsfQif_5ph_Noky-C8UgFg/exec';
+
+    function getRecipientEmail() {
+        const urlParams = new URLSearchParams(window.location.search);
+        let email = urlParams.get('email') || '';
+        if (!email) {
+            email = localStorage.getItem('ol_user_email') || '';
+        }
+        if (!email) {
+            try {
+                const userObj = JSON.parse(localStorage.getItem('currentUser') || '{}');
+                if (userObj && userObj.email) email = userObj.email;
+            } catch(e) {}
+        }
+        return email.trim();
+    }
+
+    function showToast(msg, isSuccess = true, duration = 4000) {
+        const toast = document.getElementById('toast');
+        if (!toast) return;
+        toast.style.background = isSuccess ? '#059669' : '#dc2626';
+        toast.innerHTML = (isSuccess ? '<i class="fa-solid fa-circle-check"></i> ' : '<i class="fa-solid fa-circle-exclamation"></i> ') + msg;
+        toast.style.display = 'flex';
+        setTimeout(() => {
+            toast.style.display = 'none';
+        }, duration);
+    }
+
+    let isSending = false;
+    async function sendGuideEmail() {
+        if (isSending) return;
+        const email = getRecipientEmail();
+        if (!email) {
+            showToast('Geen e-mailadres gevonden. Log eerst in.', false);
+            return;
+        }
+
+        const btn = document.getElementById('mailGuideBtn');
+        const icon = document.getElementById('mailGuideIcon');
+        isSending = true;
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+        btn.style.cursor = 'not-allowed';
+        icon.className = 'fa-solid fa-spinner fa-spin';
+
+        try {
+            const url = `${SCRIPT_URL}?action=emailSnelstartPdf&email=${encodeURIComponent(email)}`;
+            await fetch(url, { mode: 'no-cors' });
+            showToast(`PDF verstuurd naar ${email}!`);
+        } catch(err) {
+            console.error('Mail fetch error:', err);
+            showToast(`Verzenden mislukt: ${err.message || 'Controleer verbinding'}`, false);
+        } finally {
+            setTimeout(() => {
+                isSending = false;
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.cursor = 'pointer';
+                icon.className = 'fa-solid fa-paper-plane';
+            }, 1500);
+        }
+    }
+</script>
 
 </body>
 </html>

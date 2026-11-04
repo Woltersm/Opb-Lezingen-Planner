@@ -776,11 +776,17 @@
                     <p class="screenshot-placeholder-desc">Toont de maandknoppen, tellers met 'X vrij', en datumkaarten met kleuren.</p>
                 </div>
 
-                <h3><i class="fa-solid fa-calendar-days"></i> Maandknoppen &amp; Tellers</h3>
-                <p>Bovenaan de Planner navigeer je eenvoudig tussen de verschillende maanden van het jaar:</p>
+                <h3><i class="fa-solid fa-calendar-days"></i> Maandknoppen &amp; Statussymbolen</h3>
+                <p>Bovenaan de Planner navigeer je eenvoudig tussen de verschillende maanden. In elke maandbalk zie je direct de actuele status via herkenbare symbolen:</p>
                 <ul>
-                    <li><strong>Persoonlijke maandteller:</strong> Een cirkeltje toont hoeveel toespraken jij in die specifieke maand houdt. Dit voorkomt dat je per ongeluk twee toespraken te kort op elkaar plant.</li>
-                    <li><strong>Groene statuspil <span class="pill pill-green">[ X vrij ]</span>:</strong> Geeft in één oogopslag aan hoeveel zondagen in die maand nog beschikbaar zijn voor de gemeente.</li>
+                    <li><strong><i class="fa-solid fa-user text-brand-600"></i> Poppetje:</strong> Vervangt vooraan het kalendericoon wanneer jij in die specifieke maand zelf een lezing hebt ingepland. Zo herken je meteen jouw eigen spreekmaanden.</li>
+                    <li><strong>Gekleurde status-stip (rechts in de maandbalk):</strong>
+                        <ul>
+                            <li>🟢 <strong>Groen:</strong> Alle zondagen van deze maand zijn bezet.</li>
+                            <li>🟠 <strong>Oranje:</strong> Plek beschikbaar: er zijn nog openstaande weken vrij die ingepland kunnen worden.</li>
+                            <li>🔴 <strong>Rood:</strong> Nog leeg: er is in deze maand nog geen enkele lezing ingepland.</li>
+                        </ul>
+                    </li>
                 </ul>
 
                 <h3><i class="fa-solid fa-palette"></i> De Status van de Datums</h3>
@@ -1072,6 +1078,31 @@
                             <td><span class="pill pill-amber">Thema nog kiezen</span></td>
                             <td>Dashboard &amp; Planner</td>
                             <td>Datum staat vast op jouw naam; het toespraaknummer volgt nog.</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa-solid fa-user text-brand-600"></i> Poppetje</td>
+                            <td>Planner (maandbalk)</td>
+                            <td>Geeft aan dat jij in deze specifieke maand zelf een lezing hebt ingepland.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span> Groen bolletje</td>
+                            <td>Planner (maandbalk)</td>
+                            <td>Volledig bezet: alle lezingen in deze maand zijn ingepland.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span> Oranje bolletje</td>
+                            <td>Planner (maandbalk)</td>
+                            <td>Plek beschikbaar: er zijn nog openstaande weken vrij in deze maand.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span> Rood bolletje</td>
+                            <td>Planner (maandbalk)</td>
+                            <td>Nog leeg: er is in deze maand nog geen enkele lezing ingepland.</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa-solid fa-arrows-rotate text-amber-600"></i> Aantal</td>
+                            <td>Planner (beheer)</td>
+                            <td>Aantal lezingen in deze maand dat nog overgezet moet worden in het externe rooster.</td>
                         </tr>
                         <tr>
                             <td><span class="pill pill-red"><i class="fa-solid fa-trash-can"></i> Rood prullenbakje</span></td>
