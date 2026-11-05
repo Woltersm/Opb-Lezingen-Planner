@@ -29,17 +29,21 @@
       var isWebView = /;\s*wv\)/i.test(ua) || /\bwv\b/i.test(ua);
       var isMailOrInApp = /FBAN|FBAV|Instagram|LinkedInApp|Line|Twitter|MicroMessenger|GSA|Snapchat/i.test(ua);
       var isChromeVersion = /Version\/[0-9.]+/i.test(ua) && /Chrome\/[0-9.]+/i.test(ua) && !/Chrome\/[0-9.]+ Mobile Safari/i.test(ua);
+      var hasTokenParam = /[?&](pinToken|token|resetToken|resetPinToken)=/i.test(window.location.search);
+      var isFromApp = document.referrer && document.referrer.includes('android-app://');
 
-      if (isWebView || isMailOrInApp || isChromeVersion) {
+      if (isWebView || isMailOrInApp || isChromeVersion || (hasTokenParam && isAndroid) || isFromApp) {
         var cleanUrl = window.location.host + window.location.pathname + window.location.search + window.location.hash;
         var chromeIntent = 'intent://' + cleanUrl + '#Intent;scheme=https;package=com.android.chrome;end';
 
-        // 1. Probeer direct automatisch naar de echte Google Chrome app te springen
-        try {
-          window.location.href = chromeIntent;
-        } catch(e) {}
+        // 1. Probeer direct automatisch naar de echte Google Chrome app te springen (als WebView)
+        if (isWebView || isMailOrInApp) {
+          try {
+            window.location.href = chromeIntent;
+          } catch(e) {}
+        }
 
-        // 2. Toon de visuele banner als vangnet indien auto-redirect geblokkeerd wordt
+        // 2. Toon de visuele banner als vangnet of instructie in Chrome Custom Tabs
         window.addEventListener('DOMContentLoaded', function() {
           var notice = document.getElementById('inAppBrowserNotice');
           var btn = document.getElementById('btnOpenInChrome');
