@@ -193,19 +193,7 @@ Wanneer je op een datum tikt, schuift vanaf de zijkant het beheerpaneel in:
 * **Thema speciale lezing:** Een optioneel tekstveld voor bijzondere toespraken, zoals een kringvergadering, herdenkingslezing of speciale toespraak.
 * **Knop `Opslaan` (`✓ Opslaan`):** Bevestigt de toespraak en werkt het gemeenterooster direct live bij.
 * **Knop `Toevoegen aan Google Agenda`:** Exporteert de toespraak direct met aanvangstijd, zaaladres en thema naar jouw agenda.
-
-### 🎲 Help me zoeken (Thema Inspirator & Randomizer)
-
-Weet je nog niet welk onderwerp je wilt houden of zoek je frisse inspiratie? De planner bevat een interactieve zoekhulp met een herkenbaar **dobbelsteen-icoon** `fa-dice` (**Help me zoeken**). Je vindt deze knop:
-1. **Bovenaan in de Planner:** Naast het schuiffilter voor lezingen.
-2. **In het inschuifpaneel:** Direct naast het keuzemenu voor toespraken.
-
-**Hoe het werkt:**
-* **Automatische 12-maanden bescherming:** Alle lezingen die minder dan 12 maanden geleden in de eigen gemeente zijn gehouden, worden automatisch uitgesloten om ongewenste herhaling te voorkomen.
-* **Filter op ervaring:** Kies uit *Alles*, *Nog nooit gehouden* (nieuwe toespraak voorbereiden) of *Eerder gehouden* (vertrouwd thema).
-* **Themacategorieën & Trefwoord:** Selecteer maximaal 3 categorieën (bijv. *Gezin/jongeren*, *Geloof/geestelijke instelling*, *Christelijke normen*) of typ een specifiek zoekwoord.
-* **🎲 Verras me (Slotmachine):** Tik op de knop **'Verras me'**. Met een speelse animatie rolt de app door de lezingen en presenteert 3 verrassende toespraken die exact aan je criteria voldoen.
-* **Bekijk & Plan:** Tik bij een optie op **'Bekijk'** om direct de samenvatting en het doel te lezen, of leg de toespraak meteen vast op een vrije datum via **'Kies lezing'** of de datum-dropdown!
+* **Geen inspiratie?** Gebruik in de Planner de functie **'Help me zoeken'** (met de dobbelsteentjes 🎲) om je te laten verrassen. Geef eventueel nog een categorie of trefwoord mee om gerichte suggesties te krijgen.
 
 ### 🗑️ Reservering Annuleren (Verhinderd)
 
