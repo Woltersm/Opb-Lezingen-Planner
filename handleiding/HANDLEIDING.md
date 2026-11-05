@@ -193,7 +193,8 @@ Wanneer je op een datum tikt, schuift vanaf de zijkant het beheerpaneel in:
 * **Thema speciale lezing:** Een optioneel tekstveld voor bijzondere toespraken, zoals een kringvergadering, herdenkingslezing of speciale toespraak.
 * **Knop `Opslaan` (`✓ Opslaan`):** Bevestigt de toespraak en werkt het gemeenterooster direct live bij.
 * **Knop `Toevoegen aan Google Agenda`:** Exporteert de toespraak direct met aanvangstijd, zaaladres en thema naar jouw agenda.
-* **Geen inspiratie?** Gebruik in de Planner de functie **'Help me zoeken'** (met de dobbelsteentjes 🎲) om je te laten verrassen. Geef eventueel nog een categorie of trefwoord mee om gerichte suggesties te krijgen.
+> 🎲 **Geen inspiratie?**  
+> Gebruik in de Planner de functie **'Help me zoeken'** (met de dobbelsteentjes) om je te laten verrassen. Geef eventueel nog een categorie of trefwoord mee om gerichte suggesties te krijgen.
 
 ### 🗑️ Reservering Annuleren (Verhinderd)
 
