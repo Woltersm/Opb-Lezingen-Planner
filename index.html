@@ -241,6 +241,15 @@
     // PWA Installatie opvangen en doorgeven aan de Apps Script iframe
     let deferredPwaPrompt = null;
 
+    function isTopStandalone() {
+      try {
+        if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) return true;
+        if (window.navigator && window.navigator.standalone === true) return true;
+        if (document.referrer && document.referrer.includes('android-app://')) return true;
+      } catch(e) {}
+      return false;
+    }
+
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPwaPrompt = e;
@@ -255,17 +264,28 @@
     function notifyIframe(data) {
       const frame = document.getElementById('appFrame');
       if (frame && frame.contentWindow) {
+        try { frame.contentWindow.postMessage(data, '*'); } catch(e) {}
+      }
+      for (let i = 0; i < window.frames.length; i++) {
         try {
-          frame.contentWindow.postMessage(data, '*');
+          window.frames[i].postMessage(data, '*');
+          for (let j = 0; j < window.frames[i].frames.length; j++) {
+            try { window.frames[i].frames[j].postMessage(data, '*'); } catch(e2) {}
+          }
         } catch(e) {}
       }
     }
 
-    function notifyIframePwaStatus() {
-      notifyIframe({
+    function notifyIframePwaStatus(target) {
+      const msg = {
         type: 'pwaInstallStatus',
-        available: !!deferredPwaPrompt
-      });
+        available: Boolean(deferredPwaPrompt),
+        isStandalone: isTopStandalone()
+      };
+      if (target) {
+        try { target.postMessage(msg, '*'); } catch(e) {}
+      }
+      notifyIframe(msg);
     }
 
     // Luister naar themakleur-wijzigingen, installatieverzoeken en afsluitberichten vanuit de Apps Script iframe
@@ -277,22 +297,42 @@
         document.body.style.backgroundColor = event.data.themeColor;
       }
       if (event.data.type === 'appReady' || event.data.action === 'checkPwaInstall') {
-        notifyIframePwaStatus();
+        notifyIframePwaStatus(event.source);
       }
       if (event.data.action === 'triggerPwaInstall') {
         if (deferredPwaPrompt) {
-          deferredPwaPrompt.prompt();
-          deferredPwaPrompt.userChoice.then((choiceResult) => {
-            notifyIframe({
-              type: 'pwaInstallResult',
-              outcome: choiceResult.outcome
+          try {
+            deferredPwaPrompt.prompt();
+            deferredPwaPrompt.userChoice.then((choiceResult) => {
+              const reply = {
+                type: 'pwaInstallResult',
+                outcome: choiceResult.outcome
+              };
+              if (event.source) {
+                try { event.source.postMessage(reply, '*'); } catch(e) {}
+              }
+              notifyIframe(reply);
+              deferredPwaPrompt = null;
+            }).catch(() => {
+              const reply = { type: 'pwaInstallUnavailable' };
+              if (event.source) {
+                try { event.source.postMessage(reply, '*'); } catch(e) {}
+              }
+              notifyIframe(reply);
             });
-            deferredPwaPrompt = null;
-          }).catch(() => {
-            notifyIframe({ type: 'pwaInstallUnavailable' });
-          });
+          } catch(err) {
+            const reply = { type: 'pwaInstallUnavailable' };
+            if (event.source) {
+              try { event.source.postMessage(reply, '*'); } catch(e) {}
+            }
+            notifyIframe(reply);
+          }
         } else {
-          notifyIframe({ type: 'pwaInstallUnavailable' });
+          const reply = { type: 'pwaInstallUnavailable' };
+          if (event.source) {
+            try { event.source.postMessage(reply, '*'); } catch(e) {}
+          }
+          notifyIframe(reply);
         }
       }
       if (event.data.action === 'exitApp') {
