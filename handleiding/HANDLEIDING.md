@@ -194,6 +194,19 @@ Wanneer je op een datum tikt, schuift vanaf de zijkant het beheerpaneel in:
 * **Knop `Opslaan` (`✓ Opslaan`):** Bevestigt de toespraak en werkt het gemeenterooster direct live bij.
 * **Knop `Toevoegen aan Google Agenda`:** Exporteert de toespraak direct met aanvangstijd, zaaladres en thema naar jouw agenda.
 
+### 🎲 Help me zoeken (Thema Inspirator & Randomizer)
+
+Weet je nog niet welk onderwerp je wilt houden of zoek je frisse inspiratie? De planner bevat een interactieve zoekhulp met een herkenbaar **dobbelsteen-icoon** `fa-dice` (**Help me zoeken**). Je vindt deze knop:
+1. **Bovenaan in de Planner:** Naast het schuiffilter voor lezingen.
+2. **In het inschuifpaneel:** Direct naast het keuzemenu voor toespraken.
+
+**Hoe het werkt:**
+* **Automatische 12-maanden bescherming:** Alle lezingen die minder dan 12 maanden geleden in de eigen gemeente zijn gehouden, worden automatisch uitgesloten om ongewenste herhaling te voorkomen.
+* **Filter op ervaring:** Kies uit *Alles*, *Nog nooit gehouden* (nieuwe toespraak voorbereiden) of *Eerder gehouden* (vertrouwd thema).
+* **Themacategorieën & Trefwoord:** Selecteer maximaal 3 categorieën (bijv. *Gezin/jongeren*, *Geloof/geestelijke instelling*, *Christelijke normen*) of typ een specifiek zoekwoord.
+* **🎲 Verras me (Slotmachine):** Tik op de knop **'Verras me'**. Met een speelse animatie rolt de app door de lezingen en presenteert 3 verrassende toespraken die exact aan je criteria voldoen.
+* **Bekijk & Plan:** Tik bij een optie op **'Bekijk'** om direct de samenvatting en het doel te lezen, of leg de toespraak meteen vast op een vrije datum via **'Kies lezing'** of de datum-dropdown!
+
 ### 🗑️ Reservering Annuleren (Verhinderd)
 
 Als je wegens ziekte, werkomstandigheden of onvoorziene gebeurtenissen verhinderd bent om te spreken, kun je jouw datum direct zelf opheffen:
@@ -394,8 +407,9 @@ Wanneer de gemeente overstapt vanuit een papieren schema, Word-bestand (`.docx`)
 | 🗓️ `fa-calendar-check` | Onderste navigatiebalk | **Planner:** Het gemeenschappelijke gemeenterooster. |
 | 📚 `fa-book-open` | Onderste navigatiebalk | **Lezingen:** De complete S-34 catalogus met schema's en samenvattingen. |
 | ⚙️ `fa-gear` | Navigatiebalk / Menu | **Instellingen:** Persoonlijke voorkeuren, notificaties en thema's. |
+| 🎲 `fa-dice` | Planner & inschuifpaneel | **Help me zoeken:** Thema inspirator en randomizer met automatische 12-maanden controle. |
 | 🗑️ `fa-trash-can` | Planner inschuifpaneel | **Rood prullenbakje:** Reservering van een datum annuleren en vrijgeven. |
-| 📅+ `fa-calendar-plus` | Bibliotheek detailvenster | **Deze lezing inplannen:** Direct beschikbare zondagen bekijken voor de gekozen lezing. |
+| 📅+ `fa-calendar-plus` | Bibliotheek detailvenster | **Deze lezing inplannen:** Direct beschikbare weekendvergaderingen bekijken voor de gekozen lezing. |
 | ➕ `fa-plus` | Het dashboard | **Lezing X vastleggen:** Met één klik naar de Planner springen bij open quotum. |
 | ⭐ `fa-star` | Bibliotheek filter | **Mijn Repertoire:** Filtert op toespraken die jij actief beheerst. |
 | ✈️ `fa-paper-plane` | Gebruikersbeheer | **Broadcast mail:** Herinnering sturen naar sprekers met een openstaand quotum. |
