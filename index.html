@@ -21,6 +21,17 @@
     } catch(e) {}
 
     // In-App Browser Detectie (Gmail, Outlook, WebView) & Automatisch Chrome forceren op Android
+    function openInChromeOrShowGuide(e) {
+      if (e) e.preventDefault();
+      var guide = document.getElementById('chromeDotsGuideOverlay');
+      if (guide) guide.style.display = 'flex';
+      var cleanUrl = window.location.host + window.location.pathname + window.location.search + window.location.hash;
+      var chromeIntent = 'intent://' + cleanUrl + '#Intent;scheme=https;package=com.android.chrome;end';
+      try {
+        window.location.href = chromeIntent;
+      } catch(err) {}
+    }
+
     (function detectAndRedirectInAppBrowser() {
       var ua = navigator.userAgent || navigator.vendor || window.opera || '';
       var isAndroid = /android/i.test(ua);
@@ -32,23 +43,21 @@
       var hasTokenParam = /[?&](pinToken|token|resetToken|resetPinToken)=/i.test(window.location.search);
       var isFromApp = document.referrer && document.referrer.includes('android-app://');
 
-      if (isWebView || isMailOrInApp || isChromeVersion || (hasTokenParam && isAndroid) || isFromApp) {
+      if (isWebView || isMailOrInApp || isChromeVersion || (hasTokenParam && isFromApp)) {
         var cleanUrl = window.location.host + window.location.pathname + window.location.search + window.location.hash;
         var chromeIntent = 'intent://' + cleanUrl + '#Intent;scheme=https;package=com.android.chrome;end';
 
-        // 1. Probeer direct automatisch naar de echte Google Chrome app te springen (als WebView)
+        // Probeer direct automatisch naar de echte Google Chrome app te springen (als standalone WebView)
         if (isWebView || isMailOrInApp) {
           try {
             window.location.href = chromeIntent;
           } catch(e) {}
         }
 
-        // 2. Toon de visuele banner als vangnet of instructie in Chrome Custom Tabs
+        // Toon de vriendelijke melding als vangnet of instructie
         window.addEventListener('DOMContentLoaded', function() {
           var notice = document.getElementById('inAppBrowserNotice');
-          var btn = document.getElementById('btnOpenInChrome');
           if (notice) notice.style.display = 'flex';
-          if (btn) btn.href = chromeIntent;
         });
       }
     })();
@@ -153,6 +162,65 @@
       line-height: 1;
       cursor: pointer;
       padding: 4px;
+    }
+
+    /* Pijl-gids overlay naar de 3 puntjes in Chrome Custom Tabs */
+    .dots-guide-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100001;
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding: 10px 14px;
+      box-sizing: border-box;
+    }
+    .dots-guide-box {
+      background: #1E293B;
+      border: 2px solid #38BDF8;
+      border-radius: 16px;
+      padding: 14px 16px;
+      max-width: 290px;
+      color: #fff;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7);
+      text-align: right;
+    }
+    .dots-guide-arrow {
+      font-size: 26px;
+      color: #38BDF8;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 6px;
+      animation: bounceArrow 0.8s infinite alternate;
+    }
+    @keyframes bounceArrow {
+      from { transform: translate(0, 0); }
+      to { transform: translate(4px, -4px); }
+    }
+    .dots-guide-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #F8FAFC;
+    }
+    .dots-guide-desc {
+      font-size: 11px;
+      color: #CBD5E1;
+      margin: 8px 0 12px;
+      line-height: 1.45;
+      text-align: left;
+    }
+    .dots-guide-btn {
+      padding: 6px 14px;
+      background: #0284C7;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
     }
 
     /* Splash Screen Overlay - Exact passend op het native Android/iOS scherm (#0F3250) */
@@ -340,18 +408,32 @@
   <div id="inAppBrowserNotice" class="in-app-notice" style="display: none;">
     <div class="in-app-notice-box">
       <div class="in-app-notice-icon">
-        <svg style="width:18px;height:18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        <svg style="width:18px;height:18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
       </div>
       <div class="in-app-notice-text">
-        <div class="in-app-notice-title">Geopend in e-mailviewer</div>
-        <p class="in-app-notice-desc">Voor direct inloggen en installeren als app:</p>
+        <div class="in-app-notice-title">Stel hier direct je pincode in!</div>
+        <p class="in-app-notice-desc">Toets hieronder je 4 cijfers in om door te gaan.</p>
       </div>
       <div class="in-app-notice-actions">
-        <a id="btnOpenInChrome" href="#" class="in-app-chrome-btn">
-          <span>Open in Chrome</span>
-        </a>
-        <button type="button" onclick="document.getElementById('inAppBrowserNotice').style.display='none'" class="in-app-close-btn">&times;</button>
+        <button type="button" id="btnOpenInChrome" class="in-app-chrome-btn" onclick="openInChromeOrShowGuide(event)">
+          <span>Naar Chrome ⋮</span>
+        </button>
+        <button type="button" onclick="document.getElementById('inAppBrowserNotice').style.display='none'" class="in-app-close-btn" title="Sluiten">&times;</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Pijl-gids overlay naar de 3 puntjes in Chrome Custom Tabs -->
+  <div id="chromeDotsGuideOverlay" class="dots-guide-overlay" style="display: none;" onclick="this.style.display='none'">
+    <div class="dots-guide-box" onclick="event.stopPropagation()">
+      <div class="dots-guide-arrow">↗ ⋮</div>
+      <div class="dots-guide-title">Openen in Chrome</div>
+      <p class="dots-guide-desc">
+        1. Tik rechtsboven in de balk op de <strong>3 puntjes (⋮)</strong>.<br>
+        2. Kies <strong>&apos;Openen in Chrome&apos;</strong>.<br><br>
+        <em>💡 Of sluit dit venster en toets direct je 4 cijfers in!</em>
+      </p>
+      <button type="button" class="dots-guide-btn" onclick="document.getElementById('chromeDotsGuideOverlay').style.display='none'">Begrepen</button>
     </div>
   </div>
 
