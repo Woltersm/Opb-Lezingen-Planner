@@ -19,6 +19,35 @@
       document.documentElement.style.backgroundColor = '#0F3250';
       document.documentElement.style.colorScheme = 'dark';
     } catch(e) {}
+
+    // In-App Browser Detectie (Gmail, Outlook, WebView) & Automatisch Chrome forceren op Android
+    (function detectAndRedirectInAppBrowser() {
+      var ua = navigator.userAgent || navigator.vendor || window.opera || '';
+      var isAndroid = /android/i.test(ua);
+      if (!isAndroid) return;
+
+      var isWebView = /;\s*wv\)/i.test(ua) || /\bwv\b/i.test(ua);
+      var isMailOrInApp = /FBAN|FBAV|Instagram|LinkedInApp|Line|Twitter|MicroMessenger|GSA|Snapchat/i.test(ua);
+      var isChromeVersion = /Version\/[0-9.]+/i.test(ua) && /Chrome\/[0-9.]+/i.test(ua) && !/Chrome\/[0-9.]+ Mobile Safari/i.test(ua);
+
+      if (isWebView || isMailOrInApp || isChromeVersion) {
+        var cleanUrl = window.location.host + window.location.pathname + window.location.search + window.location.hash;
+        var chromeIntent = 'intent://' + cleanUrl + '#Intent;scheme=https;package=com.android.chrome;end';
+
+        // 1. Probeer direct automatisch naar de echte Google Chrome app te springen
+        try {
+          window.location.href = chromeIntent;
+        } catch(e) {}
+
+        // 2. Toon de visuele banner als vangnet indien auto-redirect geblokkeerd wordt
+        window.addEventListener('DOMContentLoaded', function() {
+          var notice = document.getElementById('inAppBrowserNotice');
+          var btn = document.getElementById('btnOpenInChrome');
+          if (notice) notice.style.display = 'flex';
+          if (btn) btn.href = chromeIntent;
+        });
+      }
+    })();
   </script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -36,6 +65,90 @@
       height: 100%;
       border: none;
       display: block;
+    }
+
+    /* Melding voor In-App Browsers (Gmail, Outlook) op Android */
+    .in-app-notice {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100000;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 10px 14px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+    .in-app-notice-box {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .in-app-notice-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #D97706;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .in-app-notice-text {
+      flex: 1;
+      min-width: 0;
+    }
+    .in-app-notice-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #F8FAFC;
+      line-height: 1.2;
+    }
+    .in-app-notice-desc {
+      font-size: 11px;
+      color: #94A3B8;
+      line-height: 1.2;
+      margin-top: 2px;
+    }
+    .in-app-notice-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .in-app-chrome-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      background: #0284C7;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.4);
+      transition: background 0.15s;
+    }
+    .in-app-chrome-btn:hover {
+      background: #0369A1;
+    }
+    .in-app-close-btn {
+      background: transparent;
+      border: none;
+      color: #94A3B8;
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 4px;
     }
 
     /* Splash Screen Overlay - Exact passend op het native Android/iOS scherm (#0F3250) */
@@ -219,7 +332,37 @@
     </div>
   </div>
 
-  <iframe id="appFrame" src="https://script.google.com/macros/s/AKfycbwFVihPtRINd254W2VzhzHednnbVlWiL_MAo1HnzG7CutgahsfQif_5ph_Noky-C8UgFg/exec" allow="fullscreen"></iframe>
+  <!-- Melding voor In-App Browsers (Gmail, Outlook) op Android -->
+  <div id="inAppBrowserNotice" class="in-app-notice" style="display: none;">
+    <div class="in-app-notice-box">
+      <div class="in-app-notice-icon">
+        <svg style="width:18px;height:18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+      </div>
+      <div class="in-app-notice-text">
+        <div class="in-app-notice-title">Geopend in e-mailviewer</div>
+        <p class="in-app-notice-desc">Voor direct inloggen en installeren als app:</p>
+      </div>
+      <div class="in-app-notice-actions">
+        <a id="btnOpenInChrome" href="#" class="in-app-chrome-btn">
+          <span>Open in Chrome</span>
+        </a>
+        <button type="button" onclick="document.getElementById('inAppBrowserNotice').style.display='none'" class="in-app-close-btn">&times;</button>
+      </div>
+    </div>
+  </div>
+
+  <iframe id="appFrame" allow="fullscreen"></iframe>
+  <script>
+    (function initAppFrameSrc() {
+      var baseAppUrl = "https://script.google.com/macros/s/AKfycbwFVihPtRINd254W2VzhzHednnbVlWiL_MAo1HnzG7CutgahsfQif_5ph_Noky-C8UgFg/exec";
+      var search = window.location.search || "";
+      if (!search && window.location.hash && window.location.hash.indexOf("?") !== -1) {
+        search = window.location.hash.substring(window.location.hash.indexOf("?"));
+      }
+      var frame = document.getElementById("appFrame");
+      if (frame) frame.src = baseAppUrl + search;
+    })();
+  </script>
 
   <script>
     if ('serviceWorker' in navigator) {
@@ -280,7 +423,8 @@
       const msg = {
         type: 'pwaInstallStatus',
         available: Boolean(deferredPwaPrompt),
-        isStandalone: isTopStandalone()
+        isStandalone: isTopStandalone(),
+        urlSearch: window.location.search || ''
       };
       if (target) {
         try { target.postMessage(msg, '*'); } catch(e) {}
