@@ -557,7 +557,7 @@
     }
 
     let isSending = false;
-    async function sendGuideEmail() {
+    function sendGuideEmail() {
         if (isSending) return;
         const email = getRecipientEmail();
         if (!email) {
@@ -568,28 +568,57 @@
         const btn = document.getElementById('mailGuideBtn');
         const icon = document.getElementById('mailGuideIcon');
         isSending = true;
-        btn.disabled = true;
-        btn.style.opacity = '0.7';
-        btn.style.cursor = 'not-allowed';
-        icon.className = 'fa-solid fa-spinner fa-spin';
-
-        try {
-            const url = `${SCRIPT_URL}?action=emailSnelstartPdf&email=${encodeURIComponent(email)}`;
-            await fetch(url, { mode: 'no-cors' });
-            showToast(`PDF verstuurd naar ${email}!`);
-        } catch(err) {
-            console.error('Mail fetch error:', err);
-            showToast(`Verzenden mislukt: ${err.message || 'Controleer verbinding'}`, false);
-        } finally {
-            setTimeout(() => {
-                isSending = false;
-                btn.disabled = false;
-                btn.style.opacity = '1';
-                btn.style.cursor = 'pointer';
-                icon.className = 'fa-solid fa-paper-plane';
-            }, 1500);
+        if (btn) {
+            btn.disabled = true;
+            btn.style.opacity = '0.7';
+            btn.style.cursor = 'not-allowed';
         }
+        if (icon) icon.className = 'fa-solid fa-spinner fa-spin';
+
+        // 1. Probeer via de actieve app (window.opener) met google.script.run
+        if (window.opener && !window.opener.closed) {
+            try {
+                window.opener.postMessage({ action: 'sendSnelstartPdf', email: email }, '*');
+                // Timeout fallback voor als het antwoord langer duurt
+                setTimeout(() => {
+                    if (isSending) {
+                        resetMailGuideBtn();
+                    }
+                }, 10000);
+                return;
+            } catch(e) {
+                console.warn('postMessage mislukt:', e);
+            }
+        }
+
+        // 2. Als de pagina direct/los geopend is buiten de app-context
+        resetMailGuideBtn();
+        showToast('Tip: Verstuur de PDF direct vanuit het menu Handleiding in de app!', true, 5000);
     }
+
+    function resetMailGuideBtn() {
+        isSending = false;
+        const btn = document.getElementById('mailGuideBtn');
+        const icon = document.getElementById('mailGuideIcon');
+        if (btn) {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            btn.style.cursor = 'pointer';
+        }
+        if (icon) icon.className = 'fa-solid fa-paper-plane';
+    }
+
+    // Luister naar antwoordbericht van de app (window.opener)
+    window.addEventListener('message', (event) => {
+        if (event.data && event.data.action === 'sendSnelstartPdfResult') {
+            resetMailGuideBtn();
+            if (event.data.success) {
+                showToast(`📄 PDF verstuurd naar ${event.data.email || 'je e-mail'}!`, true);
+            } else {
+                showToast(`Verzenden mislukt: ${event.data.error || 'Onbekende fout'}`, false);
+            }
+        }
+    });
 </script>
 
 </body>
