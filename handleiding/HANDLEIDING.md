@@ -66,18 +66,18 @@ In de app kun je op twee manieren een lezing reserveren en inplannen: via het ge
 │                             TWEE WERKWIJZEN                              │
 │                                                                          │
 │   Route 1: Via De Planner (Datum-gericht)                                │
-│   Je zoekt eerst een geschikte zondag in je eigen agenda en reserveert   │
-│   de datum, eventueel met 'Thema later bepalen'.                         │
+│   Je zoekt eerst een geschikte weekendvergadering in je agenda           │
+│   en reserveert de datum, eventueel met 'Thema later bepalen'.           │
 │                                                                          │
 │   Route 2: Via De Bibliotheek (Onderwerp-gericht)                       │
 │   Je weet welke toespraak je wilt houden; de app controleert de          │
-│   12-maandenregel en toont alle beschikbare vrije zondagen.              │
+│   12-maandenregel en toont alle beschikbare weekendvergaderingen.        │
 └──────────────────────────────────────────────────────────────────────────┘
 ```
 
 #### Route 1: Plannen vanuit De Planner (Datum-gericht)
 
-Deze werkwijze is ideaal wanneer je jouw persoonlijke agenda of vakantieplanning wilt afstemmen met het gemeenterooster. Je kijkt eerst welke zondagen er in een bepaalde maand nog vrij zijn en legt direct een geschikte datum vast op jouw naam. Mocht je het onderwerp van je toespraak nog niet definitief hebben gekozen, dan selecteer je eenvoudig *'Thema later bepalen'*. De datum is dan alvast veilig voor jou gereserveerd.
+Deze werkwijze is ideaal wanneer je jouw persoonlijke agenda of vakantieplanning wilt afstemmen met het gemeenterooster. Je kijkt eerst welke weekendvergaderingen er in een bepaalde maand nog vrij zijn en legt direct een geschikte datum vast op jouw naam. Mocht je het onderwerp van je toespraak nog niet definitief hebben gekozen, dan selecteer je eenvoudig *'Thema later bepalen'*. De datum is dan alvast veilig voor jou gereserveerd.
 
 ```
 [ 🏠 Dashboard ] ➔ [ ➕ Lezing vastleggen ] ➔ [ 🗓️ Vrije datum kiezen ] ➔ [ 📖 Repertoire kiezen ] ➔ [ ✓ Opslaan ]
@@ -98,18 +98,18 @@ Deze werkwijze is ideaal wanneer je jouw persoonlijke agenda of vakantieplanning
 
 #### Route 2: Plannen vanuit De Bibliotheek (Onderwerp-gericht)
 
-Deze werkwijze gebruik je wanneer je al een specifieke toespraak in gedachten hebt, bijvoorbeeld omdat je deze lezing recent grondig hebt voorbereid of omdat het tijd is om een bepaald thema uit je repertoire te houden. Je zoekt de lezing op in de catalogus. De app controleert direct of de toespraak niet recent al in de gemeente is uitgesproken (om te frequente herhaling te voorkomen) en toont alle zondagen waarop jij deze lezing kunt houden.
+Deze werkwijze gebruik je wanneer je al een specifieke toespraak in gedachten hebt, bijvoorbeeld omdat je deze lezing recent grondig hebt voorbereid of omdat het tijd is om een bepaald thema uit je repertoire te houden. Je zoekt de lezing op in de catalogus. De app controleert direct of de toespraak niet recent al in de gemeente is uitgesproken (om te frequente herhaling te voorkomen) en toont alle weekendvergaderingen waarop jij deze lezing kunt houden.
 
 ```
 [ 📚 Lezingen ] ➔ [ 🔍 Toespraak opzoeken ] ➔ [ 📅 Deze lezing inplannen ] ➔ [ 🗓️ Datum aantikken ] ➔ [ ✓ Opslaan ]
 ```
 
 1. **Naar de Bibliotheek:** Tik onderin op **'Lezingen'** 📚.
-2. **Zoek je lezing:** Zoek op nummer `#` of op trefwoord, of tik op de filterknop **`⭐ Mijn Repertoire`**.
+2. **Zoek je lezing:** Zoek op nummer `#` of op trefwoord, of tik op de filterknop **`⭐ Repertoire`**.
 3. **Detailvenster openen:** Tik op de gewenste lezing in de lijst om het overzicht te openen.
 4. **Inplanknop:** Tik bovenaan op de knop **`Deze lezing inplannen`** (met het agenda-icoon `📅+`).
 5. **Kies een vrije datum:**
-   * Er schuift een lijst in met de titel van jouw gekozen toespraak en alle beschikbare vrije zondagen.
+   * Er schuift een lijst in met de titel van jouw gekozen toespraak en alle beschikbare vrije weekendvergaderingen.
    * *Is de toespraak recent al in de eigen gemeente gehouden?* De app toont automatisch een oranje waarschuwing (12-maandenregel) met de datum van de vorige keer.
    * Tik op de gewenste datum in de lijst.
 6. **Opslaan:** Tik onderin op **`Reservering Opslaan`** `✓`.
@@ -172,11 +172,14 @@ Het tabblad **'Planner'** 🗓️ toont het volledige gemeenterooster per kalend
 └────────────────────────────────────────────────────────┘
 ```
 
-### Maandknoppen & Tellers
+### Maandknoppen & Statussymbolen
 
-Bovenaan de Planner navigeer je eenvoudig tussen de verschillende maanden van het jaar:
-* **Persoonlijke maandteller:** Een cirkeltje toont hoeveel toespraken jij in die specifieke maand houdt. Dit voorkomt dat je per ongeluk twee toespraken te kort op elkaar plant.
-* **Groene statuspil `[ X vrij ]`:** Geeft in één oogopslag aan hoeveel zondagen in die maand nog beschikbaar zijn voor de gemeente.
+Bovenaan de Planner navigeer je eenvoudig tussen de verschillende maanden van het jaar. In elke maandbalk zie je direct de actuele status via herkenbare symbolen:
+* **👤 Poppetje:** Vervangt vooraan het kalendericoon wanneer jij in die specifieke maand zelf een lezing hebt ingepland. Zo herken je meteen jouw eigen spreekmaanden.
+* **Gekleurde status-stip (rechts in de maandbalk):**
+  * 🟢 **Groen:** Alle weekendvergaderingen van deze maand zijn bezet.
+  * 🟠 **Oranje:** Plek beschikbaar: er zijn nog openstaande weken vrij die ingepland kunnen worden.
+  * 🔴 **Rood:** Nog leeg: er is in deze maand nog geen enkele lezing ingepland.
 
 ### De Status van de Datums
 
@@ -226,7 +229,7 @@ Het tabblad **'Lezingen'** 📚 bevat de complete officiële catalogus van alle 
 
 * **Zoekbalk:** Zoek razendsnel op toespraaknummer (bijvoorbeeld `24` of `#24`), op een trefwoord uit de titel of op een specifieke Bijbeltekst.
 * **Themacategorieën:** Filter met één tik op Bijbelse hoofdthema's, zoals *Gods Koninkrijk*, *Het Gezin*, *Bijbelse Profetieën* en *Christelijke Levenswandel*.
-* **⭐ Mijn Repertoire:** Vink de ster aan om uitsluitend de toespraken te tonen die jij actief hebt voorbereid en gereed hebt om uit te spreken.
+* **⭐ Repertoire:** Vink de ster aan om uitsluitend de toespraken te tonen die jij actief hebt voorbereid en gereed hebt om uit te spreken.
 
 ### Inhoud & Persoonlijke Sprekersnotities
 
@@ -239,13 +242,13 @@ Tik op een lezing in de lijst om het detailpaneel te openen:
 ### Actieknop: Deze Lezing Inplannen
 
 Bovenaan elk detailvenster bevindt zich de opvallende knop **`Deze lezing inplannen`** (`📅+`):
-* Hiermee verbind je je studievoorbereiding direct met het gemeenterooster: je ziet in één oogopslag alle vrije zondagen waarop jij deze specifieke toespraak kunt houden en reserveert de datum met één enkele klik.
+* Hiermee verbind je je studievoorbereiding direct met het gemeenterooster: je ziet in één oogopslag alle vrije weekendvergaderingen waarop jij deze specifieke toespraak kunt houden en reserveert de datum met één enkele klik.
 
 ---
 
 ## 5. ⚙️ Instellingen & Menu
 
-Tik rechtsboven in de app op het **hamburger-icoon** `☰` om het persoonlijke voorkeurenmenu te openen:
+Tik rechtsboven in de app op jouw **profiel-avatar** (met je initialen of gekozen emoji) om het instellingenpaneel te openen:
 
 ```
 ┌────────────────────────────────────────────────────────┐
@@ -295,7 +298,7 @@ Onderin het scherm bevindt zich de speciale beheerbalk met drie gerichte beheert
 ### Realtime Gemeentestatistieken
 
 Het dashboard geeft de coördinator direct inzicht in de gezondheid van de gemeenteplanning:
-* **Vervulde vs. Open Zondagen:** Hoeveel spreekbeurten in het lopende jaar zijn al definitief bezet en hoeveel datums staan nog open.
+* **Vervulde vs. Open Weekendvergaderingen:** Hoeveel spreekbeurten in het lopende jaar zijn al definitief bezet en hoeveel datums staan nog open.
 * **Totaal Sprekersquotum:** De som van alle afgesproken spreekbeurten in de gemeente en het aantal lezingen dat plaatselijke broeders nog moeten inplannen.
 * **Datums zonder thema:** Een direct overzicht van sprekers die al wel een datum hebben gereserveerd, maar nog geen lezingnummer hebben doorgegeven.
 
@@ -380,7 +383,7 @@ Wanneer de gemeente overstapt vanuit een papieren schema, Word-bestand (`.docx`)
 
 ### Waarom ontvang ik geen bevestigingsmail of herinnering?
 > 1. Controleer je **Spam- of Ongewenste e-mailmap**.  
-> 2. Open het menu `☰` rechtsboven in de app en controleer of de vinkjes bij je notificaties aanstaan.  
+> 2. Tik rechtsboven op je profiel-avatar en controleer in het instellingenpaneel of de vinkjes bij je notificaties aanstaan.  
 > 3. Tik in het menu op **'Test e-mail versturen'** om te verifiëren of e-mails van de server goed doorkomen.
 
 ### Wat betekent de oranje herhaalwaarschuwing in de bibliotheek?
@@ -400,7 +403,7 @@ Wanneer de gemeente overstapt vanuit een papieren schema, Word-bestand (`.docx`)
 | 🗑️ `fa-trash-can` | Planner inschuifpaneel | **Rood prullenbakje:** Reservering van een datum annuleren en vrijgeven. |
 | 📅+ `fa-calendar-plus` | Bibliotheek detailvenster | **Deze lezing inplannen:** Direct beschikbare weekendvergaderingen bekijken voor de gekozen lezing. |
 | ➕ `fa-plus` | Het dashboard | **Lezing X vastleggen:** Met één klik naar de Planner springen bij open quotum. |
-| ⭐ `fa-star` | Bibliotheek filter | **Mijn Repertoire:** Filtert op toespraken die jij actief beheerst. |
+| ⭐ `fa-star` | Bibliotheek filter | **Repertoire:** Filtert op toespraken die jij actief beheerst. |
 | ✈️ `fa-paper-plane` | Gebruikersbeheer | **Broadcast mail:** Herinnering sturen naar sprekers met een openstaand quotum. |
 | 🟢 `Nog niet ingevuld / Vrij` | Planner rooster | Beschikbare datum om te reserveren. |
 | 🟠 `Thema nog kiezen` | Dashboard & Planner | Datum staat vast op naam; lezingnummer wordt later aangevuld. |
