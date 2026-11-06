@@ -19,6 +19,27 @@
       document.documentElement.style.backgroundColor = '#0F3250';
       document.documentElement.style.colorScheme = 'dark';
     } catch(e) {}
+
+    // Vroegtijdige PWA & Service Worker registratie direct in <head>
+    window.deferredPwaPrompt = null;
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(function() {});
+    }
+
+    window.addEventListener('beforeinstallprompt', function(e) {
+      e.preventDefault();
+      window.deferredPwaPrompt = e;
+      if (typeof notifyIframePwaStatus === 'function') {
+        notifyIframePwaStatus();
+      }
+    });
+
+    window.addEventListener('appinstalled', function() {
+      window.deferredPwaPrompt = null;
+      if (typeof notifyIframe === 'function') {
+        notifyIframe({ type: 'pwaInstalled' });
+      }
+    });
   </script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -288,9 +309,10 @@
     }
 
     function notifyIframePwaStatus(target) {
+      const promptEvent = window.deferredPwaPrompt || deferredPwaPrompt;
       const msg = {
         type: 'pwaInstallStatus',
-        available: Boolean(deferredPwaPrompt),
+        available: Boolean(promptEvent),
         isStandalone: isTopStandalone(),
         urlSearch: window.location.search || ''
       };
@@ -312,10 +334,11 @@
         notifyIframePwaStatus(event.source);
       }
       if (event.data.action === 'triggerPwaInstall') {
-        if (deferredPwaPrompt) {
+        const promptEvent = window.deferredPwaPrompt || deferredPwaPrompt;
+        if (promptEvent) {
           try {
-            deferredPwaPrompt.prompt();
-            deferredPwaPrompt.userChoice.then((choiceResult) => {
+            promptEvent.prompt();
+            promptEvent.userChoice.then((choiceResult) => {
               const reply = {
                 type: 'pwaInstallResult',
                 outcome: choiceResult.outcome
@@ -324,6 +347,7 @@
                 try { event.source.postMessage(reply, '*'); } catch(e) {}
               }
               notifyIframe(reply);
+              window.deferredPwaPrompt = null;
               deferredPwaPrompt = null;
             }).catch(() => {
               const reply = { type: 'pwaInstallUnavailable' };
