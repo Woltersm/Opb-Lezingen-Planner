@@ -249,8 +249,7 @@
         search = window.location.hash.substring(window.location.hash.indexOf("?"));
       }
       var frame = document.getElementById("appFrame");
-      var sep = (search && search.indexOf("?") !== -1) ? "&" : "?";
-      if (frame) frame.src = baseAppUrl + (search || "") + sep + "t=" + Date.now();
+      if (frame) frame.src = baseAppUrl + search;
     })();
   </script>
 
