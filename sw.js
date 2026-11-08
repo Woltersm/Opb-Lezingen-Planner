@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ol-pwa-v44';
+const CACHE_NAME = 'ol-pwa-v45';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();
