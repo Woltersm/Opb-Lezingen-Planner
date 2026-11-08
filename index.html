@@ -330,6 +330,14 @@
         document.documentElement.style.backgroundColor = event.data.themeColor;
         document.body.style.backgroundColor = event.data.themeColor;
       }
+      if (event.data.type === 'appReady') {
+        const splashEl = document.getElementById('pwaSplashScreen');
+        if (splashEl) {
+          splashEl.style.opacity = '0';
+          splashEl.style.pointerEvents = 'none';
+          setTimeout(() => { splashEl.remove(); }, 300);
+        }
+      }
       if (event.data.type === 'appReady' || event.data.action === 'checkPwaInstall') {
         notifyIframePwaStatus(event.source);
       }
