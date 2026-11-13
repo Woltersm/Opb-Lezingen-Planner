@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ol-pwa-v48';
+const CACHE_NAME = 'ol-pwa-v49';
 const SHELL_ASSETS = [
   './',
   './index.html',
