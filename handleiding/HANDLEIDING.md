@@ -295,12 +295,12 @@ Onderin het scherm bevindt zich de speciale beheerbalk met drie gerichte beheert
 2. 📖 **S-34:** De lezingencatalogus onderhouden en actueel houden.
 3. 🛠️ **Systeem:** De AI Rooster Importer en algemene gemeente-instellingen.
 
-### Realtime Gemeentestatistieken
+### Lokale Planning & Sprekers-quotalijst
 
-Het dashboard geeft de coördinator direct inzicht in de gezondheid van de gemeenteplanning:
+Het dashboard geeft de coördinator onder **'Lokale planning'** direct inzicht in de voortgang van alle plaatselijke sprekers:
 * **Vervulde vs. Open Weekendvergaderingen:** Hoeveel spreekbeurten in het lopende jaar zijn al definitief bezet en hoeveel datums staan nog open.
-* **Totaal Sprekersquotum:** De som van alle afgesproken spreekbeurten in de gemeente en het aantal lezingen dat plaatselijke broeders nog moeten inplannen.
-* **Datums zonder thema:** Een direct overzicht van sprekers die al wel een datum hebben gereserveerd, maar nog geen lezingnummer hebben doorgegeven.
+* **Sprekers-quotalijst met filter:** Een overzichtelijke lijst van alle actieve sprekers met een gekleurd `👤` status-poppetje (groen = quotum compleet, oranje = nog openstaand of thema kiezen, rood = nog niets gepland) en een filter om direct op één broeder in te zoomen.
+* **💬 Directe WhatsApp-herinnering:** Heeft een spreker nog een openstaand quotum of een datum zonder thema? Tik naast zijn naam op het groene WhatsApp-icoon om hem met één tik een gepersonaliseerd herinneringsbericht te sturen.
 
 ### Knop 'PDF Mailen'
 
@@ -324,14 +324,15 @@ In het beheertabblad **'Gebruikers'** onderhoudt de coördinator het sprekersbes
 ### Nieuwe Spreker Toevoegen
 
 1. Klik op de knop **`+ Nieuwe Gebruiker`**.
-2. Vul de voornaam, achternaam, het e-mailadres, de zaallocatie en het afgesproken jaarquotum in (bijvoorbeeld `3`).
+2. Vul de voornaam, achternaam, het e-mailadres, het mobiele telefoonnummer (voor WhatsApp), de zaallocatie en het afgesproken jaarquotum in (bijvoorbeeld `3`).
 3. Vink **'Beheerder'** aan als de broeder meehelpt met het coördineren van het rooster.
 4. Laat het vinkje **'Verstuur activatiemail'** aanstaan. De broeder ontvangt direct een welkomstmail met zijn inlogcode en instructies om zijn pincode in te stellen.
 5. Klik op **'Opslaan'**.
 
-### Sprekers Bewerken of Deactiveren
+### Sprekers Bewerken, Deactiveren of Uitnodigen via WhatsApp
 
-* **Potlood-icoon:** E-mailadres, zaallocatie of het streefquotum aanpassen.
+* **💬 Deel app-link via WhatsApp:** Klik in de gebruikerslijst of in het bewerkvenster op het groene WhatsApp-icoon om een broeder direct via WhatsApp de link naar de planner en een korte uitleg te sturen.
+* **Potlood-icoon:** E-mailadres, telefoonnummer, zaallocatie of het streefquotum aanpassen.
 * **Sleutel-icoon:** Handmatig een nieuwe herstelcode naar het e-mailadres van de spreker sturen wanneer hij zijn inloggegevens kwijt is.
 * **Deactiveren:** Schakel het vinkje *'Actief'* uit als een broeder tijdelijk geen toespraken kan houden (bijvoorbeeld wegens langdurige ziekte, verblijf in het buitenland of tijdelijke omstandigheden). Zijn eerdere toesprakenhistorie blijft volledig behouden.
 
@@ -405,9 +406,10 @@ Wanneer de gemeente overstapt vanuit een papieren schema, Word-bestand (`.docx`)
 | ➕ `fa-plus` | Het dashboard | **Lezing X vastleggen:** Met één klik naar de Planner springen bij open quotum. |
 | ⭐ `fa-star` | Bibliotheek filter | **Repertoire:** Filtert op toespraken die jij actief beheerst. |
 | ✈️ `fa-paper-plane` | Gebruikersbeheer | **Broadcast mail:** Herinnering sturen naar sprekers met een openstaand quotum. |
+| 💬 `fa-whatsapp` | Beheerdersdashboard & Gebruikersbeheer | **WhatsApp:** Direct een persoonlijke quotumherinnering of de app-uitnodigingslink versturen via WhatsApp. |
 | 🟢 `Nog niet ingevuld / Vrij` | Planner rooster | Beschikbare datum om te reserveren. |
 | 🟠 `Thema nog kiezen` | Dashboard & Planner | Datum staat vast op naam; lezingnummer wordt later aangevuld. |
 
 ---
 
-*Handleiding Versie: 2.1 — Openbare Lezingen Planner*
+*Handleiding Versie: 2.2 — Openbare Lezingen Planner*

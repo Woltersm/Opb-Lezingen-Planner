@@ -56,7 +56,7 @@ In de app kun je op twee manieren een lezing reserveren en inplannen: via het ge
 
 ### Route 1: Plannen vanuit De Planner (Datum-gericht)
 
-Deze manier is ideaal wanneer je jouw eigen agenda of vakantieschema wilt afstemmen met het gemeenterooster. Je bekijkt eerst welke zondagen nog beschikbaar zijn en legt een geschikte datum direct vast op jouw naam. Weet je het toespraaknummer nog niet? Geen probleem: je kunt de datum alvast veiligstellen met *'Thema later bepalen'*, zodat niemand anders hem bezet terwijl jij rustig nadenkt over je onderwerp.
+Deze manier is ideaal wanneer je jouw eigen agenda of vakantieschema wilt afstemmen met het gemeenterooster. Je bekijkt eerst welke weekendvergaderingen nog beschikbaar zijn en legt een geschikte datum direct vast op jouw naam. Weet je het toespraaknummer nog niet? Geen probleem: je kunt de datum alvast veiligstellen met *'Thema later bepalen'*, zodat niemand anders hem bezet terwijl jij rustig nadenkt over je onderwerp.
 
 ```
 [ 🏠 Dashboard ] ➔ [ ➕ Lezing vastleggen ] ➔ [ 🗓️ Vrije datum kiezen ] ➔ [ 📖 Repertoire kiezen ] ➔ [ ✓ Opslaan ]
@@ -67,6 +67,7 @@ Deze manier is ideaal wanneer je jouw eigen agenda of vakantieschema wilt afstem
 3. **Paneel schuift in:**
    * Kies jouw toespraak in het uitklapmenu **'Kies een lezing uit je repertoire'**.
    * *Weet je het onderwerp nog niet?* Kies **'Thema later bepalen'**. De datum staat direct exclusief op jouw naam!
+   * *Geen inspiratie?* Gebruik de functie **`🎲 Help me zoeken`** om je te laten verrassen.
 4. **Opslaan:** Tik op de knop **`Opslaan`** (met het vinkje `✓`).
 5. **Agenda:** Tik op **`Toevoegen aan Google Agenda`** om de toespraak direct met zaaladres in je telefoonagenda te zetten.
 
@@ -77,18 +78,18 @@ Deze manier is ideaal wanneer je jouw eigen agenda of vakantieschema wilt afstem
 
 ### Route 2: Plannen vanuit De Bibliotheek (Onderwerp-gericht)
 
-Deze manier gebruik je wanneer je al weet welke specifieke toespraak je wilt houden, bijvoorbeeld omdat je deze net grondig hebt voorbereid of omdat het tijd is voor een bepaald thema uit je repertoire. Je zoekt de lezing op in de catalogus. De app controleert meteen of deze toespraak niet recent al in de gemeente is uitgesproken (om te snelle herhaling te voorkomen), en toont je direct alle vrije zondagen waarop jij deze lezing kunt houden.
+Deze manier gebruik je wanneer je al weet welke specifieke toespraak je wilt houden, bijvoorbeeld omdat je deze net grondig hebt voorbereid of omdat het tijd is voor een bepaald thema uit je repertoire. Je zoekt de lezing op in de catalogus. De app controleert meteen of deze toespraak niet recent al in de gemeente is uitgesproken (om te snelle herhaling te voorkomen), en toont je direct alle vrije weekendvergaderingen waarop jij deze lezing kunt houden.
 
 ```
 [ 📚 Lezingen ] ➔ [ 🔍 Toespraak opzoeken ] ➔ [ 📅 Deze lezing inplannen ] ➔ [ 🗓️ Datum aantikken ] ➔ [ ✓ Opslaan ]
 ```
 
 1. **Naar de Bibliotheek:** Tik onderin op **'Lezingen'** 📚.
-2. **Zoek je lezing:** Zoek op toespraaknummer `#` of trefwoord, of tik op **`⭐ Mijn Repertoire`**.
+2. **Zoek je lezing:** Zoek op toespraaknummer `#` of trefwoord, of tik op **`⭐ Repertoire`**.
 3. **Open het lezingendetail:** Tik op de gewenste lezing in de lijst.
 4. **Klik op de inplanknop:** Tik bovenaan op de knop **`Deze lezing inplannen`** (met het agenda-icoon `📅+`).
 5. **Kies een vrije datum:**
-   * Er schuift een lijst in met de titel van jouw lezing en alle beschikbare vrije zondagen.
+   * Er schuift een lijst in met de titel van jouw lezing en alle beschikbare vrije weekendvergaderingen.
    * *Is de lezing recent al in de gemeente gehouden?* De app toont direct een automatische waarschuwing (12-maandenregel).
    * Tik op de gewenste datum in de lijst.
 6. **Opslaan:** Tik onderin op **`Reservering Opslaan`** `✓`.
@@ -100,4 +101,4 @@ Deze manier gebruik je wanneer je al weet welke specifieke toespraak je wilt hou
 
 * **Google Agenda:** Tik direct na het reserveren op **'Toevoegen aan Google Agenda'**; datum, aanvangstijd, zaaladres en het toespraaknummer staan er direct kant-en-klaar in.
 * **7 Dagen Herinnering:** Exact 7 dagen voor jouw toespraak ontvang je om 08:00 uur automatisch een herinneringsmail met alle toespraak- en zaalgegevens, zodat je de laatste hand aan je voorbereiding kunt leggen.
-* **Instellingen:** Tik rechtsboven op het menu `☰` om te wisselen tussen Licht- en Donkermodus of je notificatievoorkeuren te beheren.
+* **Instellingen:** Tik rechtsboven op je **profiel-avatar** (met je initialen) om te wisselen tussen Licht- en Donkermodus of je notificatievoorkeuren te beheren.
