@@ -46,11 +46,11 @@ Door de planner als app op je telefoon te installeren, opent deze altijd schermv
 Om toegang te krijgen zonder telkens ingewikkelde wachtwoorden te hoeven intypen — wat vooral onhandig is op een mobiele telefoon in de Koninkrijkszaal — werkt de planner met een persoonlijke **4-cijferige pincode**:
 
 ```
-[ 📧 E-mailadres invullen ] ➔ [ ✉️ 6-cijferige code uit mail ] ➔ [ 🔢 4-cijferige pincode kiezen (2x) ]
+[ 📧 E-mailadres invullen ] ➔ [ ✉️ 4-letterige code uit mail ] ➔ [ 🔢 4-cijferige pincode kiezen (2x) ]
 ```
 
 1. Vul je geregistreerde e-mailadres in en tik op **'Code aanvragen'**.
-2. Voer de 6-cijferige controlecode in die je per e-mail hebt ontvangen.
+2. Voer de 4-letterige controlecode in die je per e-mail hebt ontvangen.
 3. Toets een persoonlijke **4-cijferige pincode** in en bevestig deze direct nogmaals ter controle.
 4. Vink **'Mijn gegevens onthouden'** aan. Bij een volgend bezoek verschijnt meteen het cijfertoetsenbord en log je binnen twee seconden in.
 *(Ben je je pincode vergeten? Tik onder het numerieke toetsenbord op **'Pincode vergeten?'** om direct een herstelcode per e-mail te ontvangen).*
@@ -374,7 +374,7 @@ Wanneer de gemeente overstapt vanuit een papieren schema, Word-bestand (`.docx`)
 ## 9. ❓ Veelgestelde vragen
 
 ### Ik ben mijn 4-cijferige pincode vergeten. Wat moet ik doen?
-> Tik op het inlogscherm onder het numerieke toetsenbord op **'Pincode vergeten?'**. Er wordt direct een 6-cijferige controlecode naar je e-mailadres gestuurd waarmee je direct een nieuwe 4-cijferige pincode instelt.
+> Tik op het inlogscherm onder het numerieke toetsenbord op **'Pincode vergeten?'**. Er wordt direct een 4-letterige controlecode naar je e-mailadres gestuurd waarmee je direct een nieuwe 4-cijferige pincode instelt.
 
 ### Ik ben onverwacht verhinderd voor een geplande toespraak. Hoe geef ik mijn datum vrij?
 > Tik in de Planner op jouw gereserveerde datum. Linksonder in het inschuifpaneel klik je op het **rode prullenbakje** `🗑️`. Bevestig in de pop-up met de rode knop **'Reservering Annuleren'**. De datum is direct weer beschikbaar als vrije datum voor een andere broeder.

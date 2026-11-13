@@ -1,7 +1,18 @@
-const CACHE_NAME = 'ol-pwa-v47';
+const CACHE_NAME = 'ol-pwa-v48';
+const SHELL_ASSETS = [
+  './',
+  './index.html',
+  './manifest.json',
+  './handleiding/handleiding.html',
+  './handleiding/snelstart.html'
+];
 
 self.addEventListener('install', (e) => {
-  self.skipWaiting();
+  e.waitUntil(
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(SHELL_ASSETS).catch(() => {}))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener('activate', (e) => {

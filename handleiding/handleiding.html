@@ -6,6 +6,7 @@
     <title>Handleiding — Openbare Lezingen Planner</title>
     <!-- FontAwesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --brand-50: #fbf5f2;
@@ -66,7 +67,9 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
             background-color: var(--bg-body);
             color: var(--text-main);
             line-height: 1.6;
@@ -280,6 +283,7 @@
             font-size: 16px;
         }
         .section-header h2 {
+            font-family: 'Lora', Georgia, serif;
             font-size: 20px;
             font-weight: 800;
             color: var(--text-main);
@@ -552,6 +556,9 @@
             .top-header {
                 padding: 10px 14px;
             }
+            .search-box input {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -648,13 +655,13 @@
                 <div class="flow-bar">
                     <span class="flow-node"><i class="fa-solid fa-envelope"></i> E-mailadres invullen</span>
                     <i class="fa-solid fa-chevron-right flow-arrow"></i>
-                    <span class="flow-node"><i class="fa-solid fa-shield-halved"></i> 6-cijferige code uit mail</span>
+                    <span class="flow-node"><i class="fa-solid fa-shield-halved"></i> 4-letterige code uit mail</span>
                     <i class="fa-solid fa-chevron-right flow-arrow"></i>
                     <span class="flow-node"><i class="fa-solid fa-lock"></i> 4-cijferige pincode kiezen (2x)</span>
                 </div>
                 <ol>
                     <li>Vul je geregistreerde e-mailadres in en tik op <strong>'Code aanvragen'</strong>.</li>
-                    <li>Voer de 6-cijferige controlecode in die je per e-mail hebt ontvangen.</li>
+                    <li>Voer de 4-letterige controlecode in die je per e-mail hebt ontvangen.</li>
                     <li>Toets een persoonlijke <strong>4-cijferige pincode</strong> in en bevestig deze direct nogmaals ter controle.</li>
                     <li>Vink <strong>'Mijn gegevens onthouden'</strong> aan. Bij een volgend bezoek verschijnt meteen het cijfertoetsenbord en log je binnen twee seconden in.</li>
                 </ol>
@@ -988,7 +995,7 @@
                         <i class="fa-solid fa-chevron-down faq-chevron"></i>
                     </div>
                     <div class="faq-answer">
-                        Tik op het inlogscherm onder het numerieke toetsenbord op <strong>'Pincode vergeten?'</strong>. Er wordt direct een 6-cijferige controlecode naar je e-mail gestuurd waarmee je direct een nieuwe 4-cijferige pincode instelt.
+                        Tik op het inlogscherm onder het numerieke toetsenbord op <strong>'Pincode vergeten?'</strong>. Er wordt direct een 4-letterige controlecode naar je e-mail gestuurd waarmee je direct een nieuwe 4-cijferige pincode instelt.
                     </div>
                 </div>
 
